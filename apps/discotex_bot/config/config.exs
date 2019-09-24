@@ -18,8 +18,11 @@ use Mix.Config
 #
 # You can also configure a third-party app:
 #
-#     config :logger, level: :info
-#
+    config :logger, level: :debug
+
+
+config :nostrum,
+  token: System.get_env("DISCORD_BOT_TOKEN)
 
 # It is also possible to import configuration files, relative to this
 # directory. For example, you can emulate configuration per environment
