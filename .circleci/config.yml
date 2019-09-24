@@ -86,7 +86,7 @@ jobs:
 
       - run: mix format --check-formatted
       - run: mix credo --strict
-      - run: mix do ecto.create, ecto.migrate && mix coveralls.html --umbrella
+      - run: mix do ecto.create, ecto.migrate && mix test
 
       - persist_to_workspace:
           root: .
