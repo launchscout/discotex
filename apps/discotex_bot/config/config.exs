@@ -18,11 +18,7 @@ use Mix.Config
 #
 # You can also configure a third-party app:
 #
-    config :logger, level: :debug
-
-
-config :nostrum,
-  token: System.get_env("DISCORD_BOT_TOKEN)
+config :logger, level: :debug
 
 # It is also possible to import configuration files, relative to this
 # directory. For example, you can emulate configuration per environment
@@ -30,4 +26,4 @@ config :nostrum,
 # Configuration from the imported file will override the ones defined
 # here (which is why it is important to import them last).
 #
-#     import_config "#{Mix.env()}.exs"
+import_config "#{Mix.env()}.exs"

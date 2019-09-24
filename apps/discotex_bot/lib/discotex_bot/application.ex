@@ -6,8 +6,25 @@ defmodule DiscotexBot.Application do
   alias DiscotexBot.SimpleResponder
 
   def start(_type, _args) do
-    children = [SimpleResponder]
+    Supervisor.start_link(children(), strategy: :one_for_one, name: DiscotexBot.Supervisor)
+  end
 
-    Supervisor.start_link(children, strategy: :one_for_one, name: DiscotexBot.Supervisor)
+  defp children do
+    [
+      configure(SimpleResponder)
+    ]
+    |> List.flatten()
+  end
+
+  defp configure(process) do
+    if should_start?(process) do
+      process
+    else
+      []
+    end
+  end
+
+  defp should_start?(process) do
+    Application.get_env(:discotex_bot, process, [])[:enabled] == true
   end
 end

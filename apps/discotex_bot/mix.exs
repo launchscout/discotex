@@ -29,7 +29,7 @@ defmodule DiscotexBot.MixProject do
   defp deps do
     [
       {:discotex, in_umbrella: true},
-      {:nostrum, "~> 0.4"}
+      {:nostrum, github: "tmecklem/nostrum", branch: "master"}
     ]
   end
 end
