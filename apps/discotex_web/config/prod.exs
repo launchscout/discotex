@@ -15,7 +15,8 @@ use Mix.Config
 # before starting your production server.
 config :discotex_web, DiscotexWeb.Endpoint,
   http: [:inet6, port: System.get_env("PORT") || 4000],
-  url: [host: "example.com", port: 80],
+  url: [scheme: "https", host: "discotex.herokuapp.com", port: 443],
+  force_ssl: [rewrite_on: [:x_forwarded_proto]],
   cache_static_manifest: "priv/static/cache_manifest.json"
 
 # ## SSL Support
