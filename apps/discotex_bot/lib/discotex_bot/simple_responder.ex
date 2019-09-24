@@ -1,23 +1,32 @@
 defmodule DiscotexBot.SimpleResponder do
+  @moduledoc """
+  A simple responder module that connects to discord and listens for events
+
+  Event handling is done in dispatchers
+  """
+
   use Nostrum.Consumer
 
+  alias DiscotexBot.Dispatch
   alias Nostrum.Api
-  alias Nostrum.Struct.{Message, User}
+  alias Nostrum.Cache.Me
+  alias Nostrum.Struct.Message
+
+  require Logger
 
   def start_link do
     Consumer.start_link(__MODULE__)
   end
 
-  def handle_event({:MESSAGE_CREATE, {message = %Message{}}, _ws_state}) do
-    handle_message_create(message, Nostrum.Cache.Me.get())
+  def handle_event({:MESSAGE_CREATE, message = %Message{}, _ws_state}) do
+    respond(Dispatch.handle_message_create(message, Me.get()))
   end
 
   def handle_event(event) do
-    IO.inspect(event)
+    Logger.info("Unhandled event: #{inspect(event)}")
   end
 
-  def handle_message_create(%Message{author: %User{id: user_id}}, _me = %User{id: user_id}), do: :ok
-  def handle_message_create(message = %Message{}, _me = %User{}) do
-    Api.create_message(message.channel_id, message.content)
+  defp respond({:message_create, message, channel_id}) do
+    Api.create_message(channel_id, message)
   end
 end

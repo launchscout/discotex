@@ -11,7 +11,7 @@ defmodule Discotex.Umbrella.MixProject do
 
   defp deps do
     [
-      {:credo,  "~> 1.1.0", only: [:dev, :test], runtime: false}
+      {:credo, "~> 1.1.0", only: [:dev, :test], runtime: false}
     ]
   end
 end

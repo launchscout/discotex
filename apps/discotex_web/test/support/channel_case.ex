@@ -15,21 +15,26 @@ defmodule DiscotexWeb.ChannelCase do
 
   use ExUnit.CaseTemplate
 
+  alias Discotex.Repo
+  alias DiscotexWeb.Endpoint
+  alias Ecto.Adapters.SQL.Sandbox
+  alias Phoenix.ChannelCase
+
   using do
     quote do
       # Import conveniences for testing with channels
-      use Phoenix.ChannelTest
+      use ChannelTest
 
       # The default endpoint for testing
-      @endpoint DiscotexWeb.Endpoint
+      @endpoint Endpoint
     end
   end
 
   setup tags do
-    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Discotex.Repo)
+    :ok = Sandbox.checkout(Repo)
 
     unless tags[:async] do
-      Ecto.Adapters.SQL.Sandbox.mode(Discotex.Repo, {:shared, self()})
+      Sandbox.mode(Repo, {:shared, self()})
     end
 
     :ok

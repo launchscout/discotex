@@ -5,9 +5,11 @@ defmodule Discotex.Application do
 
   use Application
 
+  alias Discotex.Repo
+
   def start(_type, _args) do
     children = [
-      Discotex.Repo
+      Repo
     ]
 
     Supervisor.start_link(children, strategy: :one_for_one, name: Discotex.Supervisor)
