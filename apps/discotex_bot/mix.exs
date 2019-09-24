@@ -29,7 +29,7 @@ defmodule DiscotexBot.MixProject do
   defp deps do
     [
       {:discotex, in_umbrella: true},
-      {:nostrum, "~> 0.1"}
+      {:nostrum, "~> 0.4"}
     ]
   end
 end
