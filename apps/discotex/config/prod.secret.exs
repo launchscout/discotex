@@ -12,6 +12,6 @@ use Mix.Config
 # Configure your database
 config :discotex, Discotex.Repo,
   ssl: true,
-  url: database_url,
+  url: System.get_env("DATABASE_URL"),
   database: "discotex_prod",
   pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10")
