@@ -5,7 +5,7 @@ defmodule DiscotexBot.Dispatch do
 
   alias Nostrum.Struct.{Message, User}
 
-  @message_types [{~r/hi/, :hi}, {~r/bye/, :bye}, {~r/bees/, :bees}]
+  @message_types [{~r/hi/, :hi}, {~r/bees/, :bees}]
 
   def handle_message_create(%Message{author: %User{id: user_id}}, _me = %User{id: user_id}),
     do: :ok
