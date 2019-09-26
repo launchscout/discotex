@@ -42,6 +42,17 @@ defmodule DispatchTest do
     assert Dispatch.handle_message_create(message, nil) == :no_action
   end
 
+  @welcome_gif "https://giphy.com/gifs/hqg-tXTqLBYNf0N7W"
+  test "Discotex responds to you're welcome" do
+    message = %Message{content: "you're welcome", author: %User{id: @user_id}, channel_id: 5}
+    assert Dispatch.handle_message_create(message, nil) == {:message_create, @welcome_gif, 5}
+  end
+
+  test "Discotex doesn't respond to you're welcome along with other stuff in the message" do
+    message = %Message{content: "hello you're welcome", author: %User{id: @user_id}, channel_id: 5}
+    assert Dispatch.handle_message_create(message, nil) == :no_action
+  end
+
   @haley_url "http://i.imgur.com/92H3YUk.gif"
   test "responds to dance Haley" do
     message = %Message{content: "dance Haley", author: %User{id: @user_id}, channel_id: 5}
