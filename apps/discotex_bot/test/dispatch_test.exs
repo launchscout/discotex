@@ -49,7 +49,12 @@ defmodule DispatchTest do
   end
 
   test "Discotex doesn't respond to you're welcome along with other stuff in the message" do
-    message = %Message{content: "hello you're welcome", author: %User{id: @user_id}, channel_id: 5}
+    message = %Message{
+      content: "hello you're welcome",
+      author: %User{id: @user_id},
+      channel_id: 5
+    }
+
     assert Dispatch.handle_message_create(message, nil) == :no_action
   end
 
