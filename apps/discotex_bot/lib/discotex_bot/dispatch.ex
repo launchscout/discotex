@@ -5,7 +5,7 @@ defmodule DiscotexBot.Dispatch do
 
   alias Nostrum.Struct.{Message, User}
 
-  @message_types [{~r/hi/i, :hi}, {~r/bees/i, :bees}, {~r/dance Haley/, :dance_haley}]
+  @message_types [{~r/\bhi\b/i, :hi}, {~r/\bbees\b/i, :bees}, {~r/dance Haley/, :dance_haley}]
 
   def handle_message_create(%Message{author: %User{id: user_id}}, _me = %User{id: user_id}),
     do: :ok
@@ -33,5 +33,9 @@ defmodule DiscotexBot.Dispatch do
 
   defp do_reply({:dance_haley, message}) do
     {:message_create, "http://i.imgur.com/92H3YUk.gif", message.channel_id}
+  end
+
+  defp do_reply(_) do
+    :no_action
   end
 end
