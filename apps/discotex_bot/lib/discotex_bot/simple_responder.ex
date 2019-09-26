@@ -29,4 +29,6 @@ defmodule DiscotexBot.SimpleResponder do
   defp respond({:message_create, message, channel_id}) do
     Api.create_message(channel_id, message)
   end
+
+  defp respond(:no_action), do: nil
 end

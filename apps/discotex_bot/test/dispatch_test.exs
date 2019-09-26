@@ -21,6 +21,11 @@ defmodule DispatchTest do
              {:message_create, "Hi, <@#{@user_id}>", 5}
   end
 
+  test "Discotex does not respond to high" do
+    message = %Message{content: "high", author: %User{id: @user_id}, channel_id: 5}
+    assert Dispatch.handle_message_create(message, nil) == :no_action
+  end
+
   @bees_url "http://i.imgur.com/qrLEV.gif"
   test "Discotex responds to bees" do
     message = %Message{content: "bees", author: %User{id: @user_id}, channel_id: 5}
@@ -30,6 +35,11 @@ defmodule DispatchTest do
   test "Discotex responds to BEES" do
     message = %Message{content: "BEES", author: %User{id: @user_id}, channel_id: 5}
     assert Dispatch.handle_message_create(message, nil) == {:message_create, @bees_url, 5}
+  end
+
+  test "Discotex does not respond to beeswax" do
+    message = %Message{content: "beeswax", author: %User{id: @user_id}, channel_id: 5}
+    assert Dispatch.handle_message_create(message, nil) == :no_action
   end
 
   @haley_url "http://i.imgur.com/92H3YUk.gif"
