@@ -9,7 +9,8 @@ defmodule DiscotexBot.Dispatch do
     {~r/\bhi\b/i, :hi},
     {~r/\bbees\b/i, :bees},
     {~r/\bdance,? Haley\b/i, :dance_haley},
-    {~r/^you're welcome$/i, :welcome}
+    {~r/^you're welcome$/i, :welcome},
+    {~r/^poll:.*$/i, :create_poll}
   ]
 
   def handle_message_create(%Message{author: %User{id: user_id}}, _me = %User{id: user_id}),
@@ -42,6 +43,10 @@ defmodule DiscotexBot.Dispatch do
 
   defp do_reply({:welcome, message}) do
     {:message_create, "https://giphy.com/gifs/hqg-tXTqLBYNf0N7W", message.channel_id}
+  end
+
+  defp do_reply({:create_poll, message}) do
+    {:reaction_add, "🗳", message.channel_id, message.id}
   end
 
   defp do_reply(_) do
