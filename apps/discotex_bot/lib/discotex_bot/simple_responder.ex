@@ -18,7 +18,8 @@ defmodule DiscotexBot.SimpleResponder do
     Consumer.start_link(__MODULE__)
   end
 
-  def handle_event({:MESSAGE_CREATE, message = %Message{}, _ws_state}) do
+  def handle_event(event = {:MESSAGE_CREATE, message = %Message{}, _ws_state}) do
+    Logger.info("Event: #{inspect(event)}")
     respond(Dispatch.handle_message_create(message, Me.get()))
   end
 

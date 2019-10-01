@@ -25,6 +25,7 @@ defmodule PollTest do
       ]
     }
 
-    assert DiscotexBot.get_poll_results(message.channel_id, message.id) == {:ok, %{content: "💯 is the winning reaction"}}
+    assert DiscotexBot.get_poll_results(message.channel_id, message.id) ==
+             {:ok, %{content: "💯 is the winning reaction"}}
   end
 end
