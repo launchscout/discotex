@@ -8,7 +8,7 @@ defmodule DiscotexBot.Dispatch do
   @message_types [
     {~r/\bhi\b/i, :hi},
     {~r/\bbees\b/i, :bees},
-    {~r/dance Haley/, :dance_haley},
+    {~r/\bdance,? Haley\b/i, :dance_haley},
     {~r/^you're welcome$/i, :welcome}
   ]
 

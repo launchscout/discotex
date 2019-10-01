@@ -63,4 +63,19 @@ defmodule DispatchTest do
     message = %Message{content: "dance Haley", author: %User{id: @user_id}, channel_id: 5}
     assert Dispatch.handle_message_create(message, nil) == {:message_create, @haley_url, 5}
   end
+
+  test "responds to dance, Haley" do
+    message = %Message{content: "dance, Haley", author: %User{id: @user_id}, channel_id: 5}
+    assert Dispatch.handle_message_create(message, nil) == {:message_create, @haley_url, 5}
+  end
+
+  test "responds to DANCE, HALEY!!" do
+    message = %Message{content: "DANCE, HALEY!!", author: %User{id: @user_id}, channel_id: 5}
+    assert Dispatch.handle_message_create(message, nil) == {:message_create, @haley_url, 5}
+  end
+
+  test "doesn't respond to badance Haleyyyy" do
+    message = %Message{content: "badance Haleyyyy", author: %User{id: @user_id}, channel_id: 5}
+    assert Dispatch.handle_message_create(message, nil) == :no_action
+  end
 end
