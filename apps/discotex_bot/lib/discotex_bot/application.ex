@@ -11,7 +11,8 @@ defmodule DiscotexBot.Application do
 
   defp children do
     [
-      configure(DiscordClient)
+      configure(DiscordClient),
+      {Registry, keys: :unique, name: Registry.ChannelContexts}
     ]
     |> List.flatten()
   end

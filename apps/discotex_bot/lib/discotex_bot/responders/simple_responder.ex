@@ -1,4 +1,8 @@
 defmodule DiscotexBot.Responders.SimpleResponder do
+  @moduledoc """
+  A module to handle simple regex call/response interactions
+  """
+
   # remove Discord Struct references
   alias Nostrum.Struct.{Message, User}
 
@@ -6,7 +10,7 @@ defmodule DiscotexBot.Responders.SimpleResponder do
     {~r/\bhi\b/i, :hi},
     {~r/\bbees\b/i, :bees},
     {~r/\bdance,? Haley\b/i, :dance_haley},
-    {~r/^you're welcome$/i, :welcome},
+    {~r/^you're welcome$/i, :welcome}
   ]
 
   def responds_to?(message) do

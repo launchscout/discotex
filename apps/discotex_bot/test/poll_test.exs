@@ -26,24 +26,26 @@ defmodule PollTest do
     poll_message_with_votes = %{
       message
       | reactions: [
-        %Nostrum.Struct.Message.Reaction{
-          count: 2,
-          emoji: %Nostrum.Struct.Emoji{id: nil, name: "💯"}
-},
-        %Nostrum.Struct.Message.Reaction{
-          count: 1,
-          emoji: %Nostrum.Struct.Emoji{id: 243, name: "oof"}
-        }
-      ]
+          %Nostrum.Struct.Message.Reaction{
+            count: 2,
+            emoji: %Nostrum.Struct.Emoji{id: nil, name: "💯"}
+          },
+          %Nostrum.Struct.Message.Reaction{
+            count: 1,
+            emoji: %Nostrum.Struct.Emoji{id: 243, name: "oof"}
+          }
+        ]
     }
 
     DiscotexBot.RubberDuckClient
     |> expect(:add_reaction, fn "🗳", @channel_id, @poll_message_id -> :ok end)
-    |> expect(:get_channel_message, fn @channel_id, @poll_message_id -> {:ok, poll_message_with_votes} end)
+    |> expect(:get_channel_message, fn @channel_id, @poll_message_id ->
+      {:ok, poll_message_with_votes}
+    end)
     |> expect(:send_message, fn "💯 is the winning vote", @channel_id -> :ok end)
+
     assert Dispatch.handle_message_create(message, bot) ==
              {:reaction_add, "🗳", message.channel_id, message.id}
-
 
     results_request_message = %Message{
       author: %Nostrum.Struct.User{id: 150, username: "Pollster McPollface"},

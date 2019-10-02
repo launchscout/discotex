@@ -1,10 +1,15 @@
 defmodule DiscotexBot.Responders.PollResponder do
+  @moduledoc """
+  Handle stateful (per channel) polls
+  """
+
+  alias DiscotexBot.ChannelState
   # remove Discord Struct references
   alias Nostrum.Struct.Message
 
   @message_types [
     {~r/^poll:.*$/i, :create_poll},
-    {~r/poll results$/i, :show_poll_results},
+    {~r/poll results$/i, :show_poll_results}
   ]
 
   def responds_to?(message) do
@@ -19,11 +24,19 @@ defmodule DiscotexBot.Responders.PollResponder do
   end
 
   defp do_reply({:create_poll, message}) do
+    pid = get_channel_state(message.channel_id)
+    ChannelState.put(pid, :poll_message_id, message.id)
     {:reaction_add, "🗳", message.channel_id, message.id}
   end
 
-  defp do_reply({:show_poll_results, message}) do
-    :no_action
+  defp do_reply({:show_poll_results, %{channel_id: channel_id}}) do
+    pid = get_channel_state(channel_id)
+    message_id = ChannelState.get(pid, :poll_message_id)
+
+    {:ok, message = %Nostrum.Struct.Message{reactions: reactions}} =
+      DiscotexBot.get_channel_message(channel_id, message_id)
+
+    {:message_create, "The poll message is #{inspect(message)}", message.channel_id}
   end
 
   # def get_poll_results(channel_id, message_id) do
@@ -49,5 +62,18 @@ defmodule DiscotexBot.Responders.PollResponder do
       end)
 
     {type, message}
+  end
+
+  defp get_channel_state(channel_id) do
+    case Registry.lookup(Registry.ChannelContexts, channel_id) do
+      [] -> create_channel_state(channel_id)
+      [{pid, _name}] -> pid
+    end
+  end
+
+  defp create_channel_state(channel_id) do
+    name = {:via, Registry, {Registry.ChannelContexts, channel_id}}
+    {:ok, pid} = ChannelState.start_link(name: name)
+    pid
   end
 end

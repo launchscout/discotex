@@ -10,7 +10,7 @@ defmodule DiscotexBot.DiscordClient do
   alias DiscotexBot.Dispatch
   alias Nostrum.Api
   alias Nostrum.Cache.Me
-  alias Nostrum.Struct.Message
+  alias Nostrum.Struct.{Emoji, Message}
 
   def start_link do
     Consumer.start_link(__MODULE__)
@@ -20,7 +20,9 @@ defmodule DiscotexBot.DiscordClient do
     Api.create_message(channel_id, content)
   end
 
-  def add_reaction(_emoji, _channel_id, _message_id) do
+  def add_reaction(emoji_name, channel_id, message_id) do
+    emoji = %Emoji{name: emoji_name}
+    {:ok} = Api.create_reaction(channel_id, message_id, emoji)
   end
 
   def get_channel_message(channel_id, message_id) do
@@ -37,7 +39,11 @@ defmodule DiscotexBot.DiscordClient do
   end
 
   defp respond({:message_create, message, channel_id}) do
-    DiscotexBot.send_message(message, channel_id)
+    send_message(message, channel_id)
+  end
+
+  defp respond({:reaction_add, emoji, channel_id, message_id}) do
+    add_reaction(emoji, channel_id, message_id)
   end
 
   defp respond(:no_action), do: nil

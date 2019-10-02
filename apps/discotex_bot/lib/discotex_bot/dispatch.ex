@@ -3,7 +3,7 @@ defmodule DiscotexBot.Dispatch do
   Handles events and (eventually) dispatches to other handlers when Discotext becomes sophisticated and stuff
   """
 
-  alias DiscotexBot.Responders.{PollResponder, SimpleResponder, NullResponder}
+  alias DiscotexBot.Responders.{NullResponder, PollResponder, SimpleResponder}
   # remove Discord Struct references
   alias Nostrum.Struct.{Message, User}
 

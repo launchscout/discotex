@@ -13,6 +13,9 @@ defmodule DiscotexBot do
   end
 
   defp chat_client do
-    Application.get_env(:discotex_bot, DiscotexBot.ChatClient, :adapter) || DiscotexBot.DiscordClient
+    case Application.get_env(:discotex_bot, DiscotexBot.ChatClient) do
+      nil -> DiscotexBot.DiscordClient
+      opts -> Keyword.get(opts, :adapter)
+    end
   end
 end
