@@ -36,7 +36,9 @@ defmodule DiscotexBot.Responders.PollResponder do
     {:ok, message = %Nostrum.Struct.Message{reactions: reactions}} =
       DiscotexBot.get_channel_message(channel_id, message_id)
 
-    {:message_create, "The poll message is #{inspect(message)}", message.channel_id}
+    name = process_reactions(reactions)
+
+    {:message_create, "#{name} is the winning vote", message.channel_id}
   end
 
   # def get_poll_results(channel_id, message_id) do
@@ -47,13 +49,12 @@ defmodule DiscotexBot.Responders.PollResponder do
   #   {:ok, %{content: "#{} is the winning reaction"}}
   # end
 
-  # defp process_reactions(reactions) do
-  #   %Nostrum.Struct.Message.Reaction{emoji: emoji} =
-  #     Enum.max_by(reactions, fn reaction -> reaction.count end)
+  defp process_reactions(reactions) do
+    %Nostrum.Struct.Message.Reaction{emoji: emoji} =
+      Enum.max_by(reactions, fn reaction -> reaction.count end)
 
-  #   %Nostrum.Struct.Emoji{name: name, id: id} = emoji
-  #   {name, id}
-  # end
+    emoji.name
+  end
 
   defp map_message(message = %Message{content: content}) do
     {_, type} =
