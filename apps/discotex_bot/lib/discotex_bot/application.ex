@@ -3,7 +3,7 @@ defmodule DiscotexBot.Application do
 
   use Application
 
-  alias DiscotexBot.SimpleResponder
+  alias DiscotexBot.DiscordClient
 
   def start(_type, _args) do
     Supervisor.start_link(children(), strategy: :one_for_one, name: DiscotexBot.Supervisor)
@@ -11,7 +11,7 @@ defmodule DiscotexBot.Application do
 
   defp children do
     [
-      configure(SimpleResponder)
+      configure(DiscordClient)
     ]
     |> List.flatten()
   end
