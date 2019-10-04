@@ -80,7 +80,22 @@ defmodule DiscotexBot.SimpleResponderTest do
   end
 
   test "responds to not saying it's aliens" do
-    message = %Message{content: "not saying it's aliens", author: %User{id: @user_id}, channel_id: 5}
+    message = %Message{
+      content: "not saying it's aliens",
+      author: %User{id: @user_id},
+      channel_id: 5
+    }
+
+    {:message_create, _, 5} = assert Dispatch.handle_message_create(message, nil)
+  end
+
+  test "responds to ayy lmao" do
+    message = %Message{content: "ayy lmao", author: %User{id: @user_id}, channel_id: 5}
+    {:message_create, _, 5} = assert Dispatch.handle_message_create(message, nil)
+  end
+
+  test "responds to drop the bass" do
+    message = %Message{content: "drop the bass", author: %User{id: @user_id}, channel_id: 5}
     {:message_create, _, 5} = assert Dispatch.handle_message_create(message, nil)
   end
 end
