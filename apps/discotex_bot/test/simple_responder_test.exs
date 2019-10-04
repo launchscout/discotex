@@ -1,4 +1,4 @@
-defmodule DispatchTest do
+defmodule DiscotexBot.SimpleResponderTest do
   use ExUnit.Case
 
   alias DiscotexBot.Dispatch
