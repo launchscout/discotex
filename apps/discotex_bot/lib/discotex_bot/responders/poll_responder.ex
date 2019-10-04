@@ -51,7 +51,9 @@ defmodule DiscotexBot.Responders.PollResponder do
 
   defp process_reactions(reactions) do
     %Nostrum.Struct.Message.Reaction{emoji: emoji} =
-      Enum.max_by(reactions, fn reaction -> reaction.count end)
+      reactions
+      |> Enum.filter(fn reaction -> reaction.emoji.name !== "🗳" end)
+      |> Enum.max_by(fn reaction -> reaction.count end)
 
     emoji.name
   end

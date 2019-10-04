@@ -33,6 +33,10 @@ defmodule PollTest do
           %Nostrum.Struct.Message.Reaction{
             count: 1,
             emoji: %Nostrum.Struct.Emoji{id: 243, name: "oof"}
+          },
+          %Nostrum.Struct.Message.Reaction{
+            count: 3,
+            emoji: %Nostrum.Struct.Emoji{id: nil, name: "🗳"}
           }
         ]
     }
