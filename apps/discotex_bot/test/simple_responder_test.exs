@@ -78,4 +78,9 @@ defmodule DiscotexBot.SimpleResponderTest do
     message = %Message{content: "badance Haleyyyy", author: %User{id: @user_id}, channel_id: 5}
     assert Dispatch.handle_message_create(message, nil) == :no_action
   end
+
+  test "responds to not saying it's aliens" do
+    message = %Message{content: "not saying it's aliens", author: %User{id: @user_id}, channel_id: 5}
+    {:message_create, _, 5} = assert Dispatch.handle_message_create(message, nil)
+  end
 end

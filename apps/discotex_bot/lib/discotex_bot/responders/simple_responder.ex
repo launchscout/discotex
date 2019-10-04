@@ -10,6 +10,7 @@ defmodule DiscotexBot.Responders.SimpleResponder do
     {~r/\bhi\b/i, :hi},
     {~r/\bbees\b/i, :bees},
     {~r/\bdance,? Haley\b/i, :dance_haley},
+    {~r/\bnot saying it.*aliens\b/i, :aliens},
     {~r/^you're welcome$/i, :welcome}
   ]
 
@@ -22,6 +23,10 @@ defmodule DiscotexBot.Responders.SimpleResponder do
 
   def handle_message(message) do
     message |> map_message() |> do_reply()
+  end
+
+  defp do_reply({:aliens, message = %Message{author: user = %User{}}}) do
+    {:message_create, "https://imgflip.com/i/src90", message.channel_id}
   end
 
   defp do_reply({:hi, message = %Message{author: user = %User{}}}) do

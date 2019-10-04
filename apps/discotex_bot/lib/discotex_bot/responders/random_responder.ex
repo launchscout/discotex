@@ -7,7 +7,7 @@ defmodule DiscotexBot.Responders.RandomResponder do
   alias Nostrum.Struct.Message
 
   @message_types [
-    {~r/\badventure me\b/i, :adventure_me},
+    {~r/\badventure me\b/i, :adventure_me}
   ]
 
   def responds_to?(message) do
