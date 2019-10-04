@@ -15,7 +15,7 @@ defmodule DiscotexWeb.ConnCase do
 
   use ExUnit.CaseTemplate
 
-  alias Discotex.{Endpoint, Repo}
+  alias Discotex.Repo
   alias DiscotexWeb.Router.Helpers
   alias Ecto.Adapters.SQL.Sandbox
   alias Phoenix.ConnTest
