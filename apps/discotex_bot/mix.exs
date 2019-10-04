@@ -29,6 +29,7 @@ defmodule DiscotexBot.MixProject do
   defp deps do
     [
       {:discotex, in_umbrella: true},
+      {:mox, "~> 0.5", only: :test},
       {:nostrum, github: "tmecklem/nostrum", branch: "master"}
     ]
   end
