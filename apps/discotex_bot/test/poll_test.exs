@@ -38,11 +38,9 @@ defmodule PollTest do
     }
 
     DiscotexBot.RubberDuckClient
-    |> expect(:add_reaction, fn "🗳", @channel_id, @poll_message_id -> :ok end)
     |> expect(:get_channel_message, fn @channel_id, @poll_message_id ->
       {:ok, poll_message_with_votes}
     end)
-    |> expect(:send_message, fn "💯 is the winning vote", @channel_id -> :ok end)
 
     assert Dispatch.handle_message_create(message, bot) ==
              {:reaction_add, "🗳", message.channel_id, message.id}
