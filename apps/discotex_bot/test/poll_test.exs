@@ -32,7 +32,7 @@ defmodule PollTest do
           },
           %Message.Reaction{
             count: 1,
-            emoji: %Emoji{id: 502166950818873365, name: "oof"}
+            emoji: %Emoji{id: 502_166_950_818_873_365, name: "oof"}
           }
         ]
     }

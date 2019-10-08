@@ -53,12 +53,12 @@ defmodule DiscotexBot.Responders.PollResponder do
 
   defp find_system_emojis(message) do
     Regex.scan(~r/[^[:ascii:]]/u, message)
-    |> List.flatten
+    |> List.flatten()
   end
 
   defp find_custom_emojis(message) do
     Regex.scan(~r/<:\w+:\d+>/, message)
-    |> List.flatten
+    |> List.flatten()
   end
 
   # def get_poll_results(channel_id, message_id) do
