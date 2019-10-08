@@ -45,9 +45,6 @@ defmodule DiscotexBot.Responders.PollResponder do
     sys_emojis = find_system_emojis(message_content)
     custom_emojis = find_custom_emojis(message_content)
 
-    IO.inspect(sys_emojis, label: "SYSTEM")
-    IO.inspect(custom_emojis, label: "CUSTOM")
-
     sys_emojis ++ custom_emojis
   end
 
