@@ -26,19 +26,39 @@ defmodule DiscotexBot.Responders.PollResponder do
   defp do_reply({:create_poll, message}) do
     pid = get_channel_state(message.channel_id)
     ChannelState.put(pid, :poll_message_id, message.id)
-    {:reaction_add, "🗳", message.channel_id, message.id}
+    {:reaction_add, get_emojis_from_message(message.content), message.channel_id, message.id}
   end
 
   defp do_reply({:show_poll_results, %{channel_id: channel_id}}) do
     pid = get_channel_state(channel_id)
     message_id = ChannelState.get(pid, :poll_message_id)
 
-    {:ok, message = %Nostrum.Struct.Message{reactions: reactions}} =
+    {:ok, message = %Message{reactions: reactions}} =
       DiscotexBot.get_channel_message(channel_id, message_id)
 
     name = process_reactions(reactions)
 
     {:message_create, "#{name} is the winning vote", message.channel_id}
+  end
+
+  defp get_emojis_from_message(message_content) when is_binary(message_content) do
+    sys_emojis = find_system_emojis(message_content)
+    custom_emojis = find_custom_emojis(message_content)
+
+    IO.inspect(sys_emojis, label: "SYSTEM")
+    IO.inspect(custom_emojis, label: "CUSTOM")
+
+    sys_emojis ++ custom_emojis
+  end
+
+  defp find_system_emojis(message) do
+    Regex.scan(~r/[^[:ascii:]]/u, message)
+    |> List.flatten
+  end
+
+  defp find_custom_emojis(message) do
+    Regex.scan(~r/<:\w+:\d+>/, message)
+    |> List.flatten
   end
 
   # def get_poll_results(channel_id, message_id) do
@@ -50,7 +70,7 @@ defmodule DiscotexBot.Responders.PollResponder do
   # end
 
   defp process_reactions(reactions) do
-    %Nostrum.Struct.Message.Reaction{emoji: emoji} =
+    %Message.Reaction{emoji: emoji} =
       reactions
       |> Enum.filter(fn reaction -> reaction.emoji.name !== "🗳" end)
       |> Enum.max_by(fn reaction -> reaction.count end)
