@@ -20,7 +20,7 @@ defmodule DiscotexBot.DiscordClient do
     Api.create_message(channel_id, content)
   end
 
-  def add_reaction(<<"<:", custom_emoji_string::binary>>, channel_id, message_id) do
+  def add_reaction("<:" <> custom_emoji_string, channel_id, message_id) do
     [name, id] =
       custom_emoji_string
       |> String.trim_trailing(">")
