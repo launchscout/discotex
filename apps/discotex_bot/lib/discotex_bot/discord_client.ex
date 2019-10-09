@@ -27,12 +27,12 @@ defmodule DiscotexBot.DiscordClient do
       |> String.split(":")
 
     emoji = %Emoji{name: name, id: String.to_integer(id)}
-    Api.create_reaction(channel_id, message_id, emoji)
+    {:ok} = Api.create_reaction(channel_id, message_id, emoji)
   end
 
   def add_reaction(emoji_name, channel_id, message_id) do
     emoji = %Emoji{name: emoji_name}
-    Api.create_reaction(channel_id, message_id, emoji)
+    {:ok} = Api.create_reaction(channel_id, message_id, emoji)
   end
 
   def get_channel_message(channel_id, message_id) do
