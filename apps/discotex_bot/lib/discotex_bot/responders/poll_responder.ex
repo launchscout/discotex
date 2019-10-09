@@ -42,21 +42,27 @@ defmodule DiscotexBot.Responders.PollResponder do
   end
 
   defp get_emojis_from_message(message_content) when is_binary(message_content) do
-    sys_emojis = find_system_emojis(message_content)
-    custom_emojis = find_custom_emojis(message_content)
+    system_emojis = get_system_emojis_list(message_content)
+    custom_emojis = get_custom_emojis_list(message_content)
 
-    sys_emojis ++ custom_emojis
+    system_emojis ++ custom_emojis
   end
 
-  defp find_system_emojis(message) do
-    Regex.scan(~r/[^[:ascii:]]/u, message)
+  defp get_system_emojis_list(message) do
+    message
+    |> find_system_emojis()
     |> List.flatten()
   end
 
-  defp find_custom_emojis(message) do
-    Regex.scan(~r/<:\w+:\d+>/, message)
+  defp find_system_emojis(string), do: Regex.scan(~r/[^[:ascii:]]/u, string)
+
+  defp get_custom_emojis_list(message) do
+    message
+    |> find_custom_emojis()
     |> List.flatten()
   end
+
+  defp find_custom_emojis(string), do: Regex.scan(~r/<:\w+:\d+>/, string)
 
   # def get_poll_results(channel_id, message_id) do
   #   {:ok, %Nostrum.Struct.Message{reactions: reactions}} =
