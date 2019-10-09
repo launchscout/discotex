@@ -55,4 +55,47 @@ defmodule PollTest do
     assert Dispatch.handle_message_create(results_request_message, bot) ==
              {:message_create, "💯 is the winning vote", message.channel_id}
   end
+
+  test "Discotex properly handles custom emoji in poll results" do
+    bot = %User{id: 1, username: "Friendly Frank"}
+
+    message = %Message{
+      author: %User{id: 150, username: "Pollster McPollface"},
+      channel_id: @channel_id,
+      content: "Poll: 💯 or <:oof:502166950818873365>",
+      id: @poll_message_id
+    }
+
+    poll_message_with_votes = %{
+      message
+      | reactions: [
+          %Message.Reaction{
+            count: 2,
+            emoji: %Emoji{id: nil, name: "💯"}
+          },
+          %Message.Reaction{
+            count: 3,
+            emoji: %Emoji{id: 502_166_950_818_873_365, name: "oof"}
+          }
+        ]
+    }
+
+    DiscotexBot.RubberDuckClient
+    |> expect(:get_channel_message, fn @channel_id, @poll_message_id ->
+      {:ok, poll_message_with_votes}
+    end)
+
+    Dispatch.handle_message_create(message, bot)
+
+    results_request_message = %Message{
+      author: %User{id: 150, username: "Pollster McPollface"},
+      channel_id: @channel_id,
+      content: "poll results",
+      id: 245
+    }
+
+    assert Dispatch.handle_message_create(results_request_message, bot) ==
+             {:message_create, "<:oof:502166950818873365> is the winning vote",
+              message.channel_id}
+  end
 end
