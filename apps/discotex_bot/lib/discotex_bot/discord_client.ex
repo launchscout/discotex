@@ -53,7 +53,10 @@ defmodule DiscotexBot.DiscordClient do
   end
 
   defp respond({:reaction_add, emoji_list, channel_id, message_id}) when is_list(emoji_list) do
-    for emoji <- emoji_list, do: add_reaction(emoji, channel_id, message_id)
+    for emoji <- emoji_list do
+      :timer.sleep(100)
+      add_reaction(emoji, channel_id, message_id)
+    end
   end
 
   defp respond({:reaction_add, emoji, channel_id, message_id}) do
