@@ -15,7 +15,7 @@ defmodule DiscotexBot.Dispatch do
 
   # ignore own messages
   def handle_message_create(%Message{author: %User{id: user_id}}, _me = %User{id: user_id}),
-    do: :ok
+    do: :no_action
 
   def handle_message_create(message = %Message{}, _me) do
     responder =
