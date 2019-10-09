@@ -5,7 +5,7 @@ defmodule DiscotexBot.Responders.PollResponder do
 
   alias DiscotexBot.ChannelState
   # remove Discord Struct references
-  alias Nostrum.Struct.{Message, Emoji}
+  alias Nostrum.Struct.{Emoji, Message}
 
   @message_types [
     {~r/^poll:.*$/i, :create_poll},
