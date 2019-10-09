@@ -17,7 +17,7 @@ defmodule DiscotexBot.DiscordClient do
   end
 
   def send_message(content, channel_id) do
-    Api.create_message(channel_id, content)
+    handle_api_response(Api.create_message(channel_id, content))
   end
 
   def add_reaction("<:" <> custom_emoji_string, channel_id, message_id) do
@@ -27,16 +27,16 @@ defmodule DiscotexBot.DiscordClient do
       |> String.split(":")
 
     emoji = %Emoji{name: name, id: String.to_integer(id)}
-    {:ok} = Api.create_reaction(channel_id, message_id, emoji)
+    handle_api_response(Api.create_reaction(channel_id, message_id, emoji))
   end
 
   def add_reaction(emoji_name, channel_id, message_id) do
     emoji = %Emoji{name: emoji_name}
-    {:ok} = Api.create_reaction(channel_id, message_id, emoji)
+    handle_api_response(Api.create_reaction(channel_id, message_id, emoji))
   end
 
   def get_channel_message(channel_id, message_id) do
-    Api.get_channel_message(channel_id, message_id)
+    handle_api_response(Api.get_channel_message(channel_id, message_id))
   end
 
   def handle_event(event = {:MESSAGE_CREATE, message = %Message{}, _ws_state}) do
@@ -64,4 +64,11 @@ defmodule DiscotexBot.DiscordClient do
   end
 
   defp respond(:no_action), do: nil
+
+  defp handle_api_response(response) do
+    case response do
+      {:ok} -> nil
+      error -> Logger.warn("Received API error response: #{inspect error}")
+    end
+  end
 end
