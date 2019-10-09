@@ -5,7 +5,7 @@ defmodule DiscotexBot.Responders.PollResponder do
 
   alias DiscotexBot.ChannelState
   # remove Discord Struct references
-  alias Nostrum.Struct.Message
+  alias Nostrum.Struct.{Message, Emoji}
 
   @message_types [
     {~r/^poll:.*$/i, :create_poll},
@@ -73,13 +73,15 @@ defmodule DiscotexBot.Responders.PollResponder do
   # end
 
   defp process_reactions(reactions) do
-    %Message.Reaction{emoji: emoji} =
-      reactions
-      |> Enum.filter(fn reaction -> reaction.emoji.name !== "🗳" end)
-      |> Enum.max_by(fn reaction -> reaction.count end)
-
-    emoji.name
+    reactions
+    |> Enum.max_by(fn reaction -> reaction.count end)
+    |> get_emoji_string()
   end
+
+  defp get_emoji_string(%Message.Reaction{emoji: %Emoji{id: nil, name: name}}), do: name
+
+  defp get_emoji_string(%Message.Reaction{emoji: %Emoji{id: id, name: name}}),
+    do: "<:#{name}:#{id}>"
 
   defp map_message(message = %Message{content: content}) do
     {_, type} =
