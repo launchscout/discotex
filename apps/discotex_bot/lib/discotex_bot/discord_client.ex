@@ -20,6 +20,16 @@ defmodule DiscotexBot.DiscordClient do
     Api.create_message(channel_id, content)
   end
 
+  def add_reaction("<:" <> custom_emoji_string, channel_id, message_id) do
+    [name, id] =
+      custom_emoji_string
+      |> String.trim_trailing(">")
+      |> String.split(":")
+
+    emoji = %Emoji{name: name, id: String.to_integer(id)}
+    {:ok} = Api.create_reaction(channel_id, message_id, emoji)
+  end
+
   def add_reaction(emoji_name, channel_id, message_id) do
     emoji = %Emoji{name: emoji_name}
     {:ok} = Api.create_reaction(channel_id, message_id, emoji)
@@ -40,6 +50,10 @@ defmodule DiscotexBot.DiscordClient do
 
   defp respond({:message_create, message, channel_id}) do
     send_message(message, channel_id)
+  end
+
+  defp respond({:reaction_add, emoji_list, channel_id, message_id}) when is_list(emoji_list) do
+    for emoji <- emoji_list, do: add_reaction(emoji, channel_id, message_id)
   end
 
   defp respond({:reaction_add, emoji, channel_id, message_id}) do

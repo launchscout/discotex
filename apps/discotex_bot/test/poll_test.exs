@@ -4,7 +4,7 @@ defmodule PollTest do
   import Mox
 
   alias DiscotexBot.Dispatch
-  alias Nostrum.Struct.{Message, User}
+  alias Nostrum.Struct.{Message, User, Emoji}
 
   # Make sure mocks are verified when the test exits
   setup :verify_on_exit!
@@ -14,10 +14,10 @@ defmodule PollTest do
   @channel_id 4234
   @poll_message_id 2334
   test "Discotex can start and evaluate a basic poll" do
-    bot = %Nostrum.Struct.User{id: 1, username: "Friendly Frank"}
+    bot = %User{id: 1, username: "Friendly Frank"}
 
     message = %Message{
-      author: %Nostrum.Struct.User{id: 150, username: "Pollster McPollface"},
+      author: %User{id: 150, username: "Pollster McPollface"},
       channel_id: @channel_id,
       content: "Poll: 💯 or <:oof:502166950818873365>",
       id: @poll_message_id
@@ -26,17 +26,13 @@ defmodule PollTest do
     poll_message_with_votes = %{
       message
       | reactions: [
-          %Nostrum.Struct.Message.Reaction{
+          %Message.Reaction{
             count: 2,
-            emoji: %Nostrum.Struct.Emoji{id: nil, name: "💯"}
+            emoji: %Emoji{id: nil, name: "💯"}
           },
-          %Nostrum.Struct.Message.Reaction{
+          %Message.Reaction{
             count: 1,
-            emoji: %Nostrum.Struct.Emoji{id: 243, name: "oof"}
-          },
-          %Nostrum.Struct.Message.Reaction{
-            count: 3,
-            emoji: %Nostrum.Struct.Emoji{id: nil, name: "🗳"}
+            emoji: %Emoji{id: 502_166_950_818_873_365, name: "oof"}
           }
         ]
     }
@@ -47,13 +43,12 @@ defmodule PollTest do
     end)
 
     assert Dispatch.handle_message_create(message, bot) ==
-             {:reaction_add, "🗳", message.channel_id, message.id}
+             {:reaction_add, ["💯", "<:oof:502166950818873365>"], message.channel_id, message.id}
 
     results_request_message = %Message{
-      author: %Nostrum.Struct.User{id: 150, username: "Pollster McPollface"},
+      author: %User{id: 150, username: "Pollster McPollface"},
       channel_id: @channel_id,
-      content: "<@#{bot.id}> poll results",
-      mentions: [bot],
+      content: "poll results",
       id: 245
     }
 
