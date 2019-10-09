@@ -68,7 +68,7 @@ defmodule DiscotexBot.DiscordClient do
   defp handle_api_response(response) do
     case response do
       {:ok} -> nil
-      error -> Logger.warn("Received API error response: #{inspect error}")
+      error -> Logger.warn("Received API error response: #{inspect(error)}")
     end
   end
 end
