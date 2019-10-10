@@ -13,6 +13,7 @@ defmodule DiscotexBot.Responders.SimpleResponder do
     {~r/\bbees\b/i, :bees},
     {~r/\bdance,? Haley\b/i, :dance_haley},
     {~r/\bdrop the bass\b/i, :drop_the_bass},
+    {~r/\bheavy breathing\b/i, :heavy_breathing},
     {~r/\bnot saying it.*aliens\b/i, :aliens},
     {~r/^you're welcome$/i, :welcome}
   ]
@@ -44,6 +45,10 @@ defmodule DiscotexBot.Responders.SimpleResponder do
 
   defp do_reply({:drop_the_bass, message = %Message{}}) do
     {:message_create, "http://i.imgur.com/yy4QHgx.gif", message.channel_id}
+  end
+
+  defp do_reply({:heavy_breathing, message = %Message{}}) do
+    {:message_create, "https://giphy.com/gifs/heavy-breathing-FZuRP6WaW5qg", message.channel_id}
   end
 
   defp do_reply({:hi, message = %Message{author: user = %User{}}}) do
