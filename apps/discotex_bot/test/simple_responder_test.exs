@@ -108,4 +108,9 @@ defmodule DiscotexBot.SimpleResponderTest do
     message = %Message{content: "enlighten me", author: %User{id: @user_id}, channel_id: 5}
     {:message_create, _, 5} = assert Dispatch.handle_message_create(message, nil)
   end
+
+  test "responds to choir can" do
+    message = %Message{content: "choir can", author: %User{id: @user_id}, channel_id: 5}
+    {:message_create, _, 5} = assert Dispatch.handle_message_create(message, nil)
+  end
 end
