@@ -30,7 +30,7 @@ defmodule DiscotexBot.MixProject do
     [
       {:discotex, in_umbrella: true},
       {:mox, "~> 0.5", only: :test},
-      {:nostrum, github: "tmecklem/nostrum", branch: "master"}
+      {:nostrum, github: "tmecklem/nostrum", branch: "ratelimit"}
     ]
   end
 end
