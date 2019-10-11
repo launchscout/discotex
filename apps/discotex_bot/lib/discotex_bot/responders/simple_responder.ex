@@ -14,6 +14,7 @@ defmodule DiscotexBot.Responders.SimpleResponder do
     {~r/\bdance,? Haley\b/i, :dance_haley},
     {~r/\bdrop the bass\b/i, :drop_the_bass},
     {~r/\bheavy breathing\b/i, :heavy_breathing},
+    {~r/\bno ragrets\b/i, :no_ragrets},
     {~r/\bnot saying it.*aliens\b/i, :aliens},
     {~r/^you're welcome$/i, :welcome}
   ]
@@ -37,10 +38,18 @@ defmodule DiscotexBot.Responders.SimpleResponder do
     {:message_create, "https://gph.is/1Fc3HJw", message.channel_id}
   end
 
+  defp do_reply({:bees, message}) do
+    {:message_create, "http://i.imgur.com/qrLEV.gif", message.channel_id}
+  end
+
   defp do_reply({:choir_can, message = %Message{}}) do
     {:message_create,
      "https://loldamn.com/wp-content/uploads/2017/01/Beer-can-choir-holiday-decoration.jpg",
      message.channel_id}
+  end
+
+  defp do_reply({:dance_haley, message}) do
+    {:message_create, "http://i.imgur.com/92H3YUk.gif", message.channel_id}
   end
 
   defp do_reply({:drop_the_bass, message = %Message{}}) do
@@ -55,12 +64,8 @@ defmodule DiscotexBot.Responders.SimpleResponder do
     {:message_create, "Hi, #{user}", message.channel_id}
   end
 
-  defp do_reply({:bees, message}) do
-    {:message_create, "http://i.imgur.com/qrLEV.gif", message.channel_id}
-  end
-
-  defp do_reply({:dance_haley, message}) do
-    {:message_create, "http://i.imgur.com/92H3YUk.gif", message.channel_id}
+  defp do_reply({:no_ragrets, message = %Message{}}) do
+    {:message_create, "http://i.ytimg.com/vi/pSW2FDXuFe4/maxresdefault.jpg", message.channel_id}
   end
 
   defp do_reply({:welcome, message}) do
