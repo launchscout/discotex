@@ -18,7 +18,6 @@ defmodule DiscotexWeb.ChannelCase do
   alias Discotex.Repo
   alias DiscotexWeb.Endpoint
   alias Ecto.Adapters.SQL.Sandbox
-  alias Phoenix.ChannelCase
 
   using do
     quote do
