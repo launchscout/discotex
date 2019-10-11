@@ -11,7 +11,8 @@ defmodule DiscotexBot.Responders.RandomResponder do
     {~r/\bcatbug me\b/i, :catbug_me},
     {~r/\benlighten me\b/i, :enlighten_me},
     {~r/\bgob it\b/i, :gob_it},
-    {~r/\bjackie chan\b/i, :jackie_chan}
+    {~r/\bjackie chan\b/i, :jackie_chan},
+    {~r/\bkitten me\b/i, :kitten_me}
   ]
 
   def responds_to?(message) do
@@ -141,6 +142,24 @@ defmodule DiscotexBot.Responders.RandomResponder do
   ]
   defp do_reply({:jackie_chan, message}) do
     {:message_create, Enum.random(@jackie_chans), message.channel_id}
+  end
+
+  @kittens [
+    "http://33.media.tumblr.com/238f42b125fe2dc26990588784580b43/tumblr_n2ukm980jV1tw5bhko1_500.gif",
+    "http://38.media.tumblr.com/tumblr_mdp11xqyi71qbc3qpo2_500.gif",
+    "http://24.media.tumblr.com/tumblr_liqd1bRSDi1qzjlrro1_500.gif",
+    "http://i.kinja-img.com/gawker-media/image/upload/s--KePUFUup--/706042605651277092.gif",
+    "http://3.bp.blogspot.com/-tVR9IESFn54/UV2BKYehVAI/AAAAAAAAHTM/8dM0CFuPnms/s1600/funny+Kitten+jump+fail.jpg",
+    "http://gifrific.com/wp-content/uploads/2013/11/Cat-Jump-to-Bookshelf-Jump-Fail.gif",
+    "http://24.media.tumblr.com/tumblr_mbz08hLeuF1ryaiojo1_400.gif",
+    "http://meowgifs.com/wp-content/uploads/2013/02/cute-mom-bops-kitten.gif",
+    "http://i1082.photobucket.com/albums/j370/Jezey/Fail%20Funny%20Gifs/Kitten-jump-fail.gif",
+    "http://chan.catiewayne.com/m/src/134562472131.gif",
+    "http://i.imgur.com/wfbtjPj.gif",
+    "http://i40.tinypic.com/15etkpg.jpg"
+  ]
+  defp do_reply({:kitten_me, message}) do
+    {:message_create, Enum.random(@kittens), message.channel_id}
   end
 
   defp map_message(message = %Message{content: content}) do
