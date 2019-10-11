@@ -16,6 +16,7 @@ defmodule DiscotexBot.Responders.SimpleResponder do
     {~r/\bheavy breathing\b/i, :heavy_breathing},
     {~r/\bno ragrets\b/i, :no_ragrets},
     {~r/\bnot saying it.*aliens\b/i, :aliens},
+    {~r/\bshred the gnar\b/i, :shred_the_gnar},
     {~r/\bthanks obama\b/i, :thanks_obama},
     {~r/\bthis is fine\b/i, :this_is_fine},
     {~r/\bvisible confusion\b/i, :visible_confusion},
@@ -65,6 +66,10 @@ defmodule DiscotexBot.Responders.SimpleResponder do
 
   defp do_reply({:hi, message = %Message{author: user = %User{}}}) do
     {:message_create, "Hi, #{user}", message.channel_id}
+  end
+
+  defp do_reply({:shred_the_gnar, message = %Message{}}) do
+    {:message_create, "https://gph.is/2lNnE57", message.channel_id}
   end
 
   defp do_reply({:no_ragrets, message = %Message{}}) do
