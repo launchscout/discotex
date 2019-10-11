@@ -10,7 +10,8 @@ defmodule DiscotexBot.Responders.RandomResponder do
     {~r/\badventure me\b/i, :adventure_me},
     {~r/\bcatbug me\b/i, :catbug_me},
     {~r/\benlighten me\b/i, :enlighten_me},
-    {~r/\bgob it\b/i, :gob_it}
+    {~r/\bgob it\b/i, :gob_it},
+    {~r/\bjackie chan\b/i, :jackie_chan}
   ]
 
   def responds_to?(message) do
@@ -125,6 +126,21 @@ defmodule DiscotexBot.Responders.RandomResponder do
   ]
   defp do_reply({:gob_it, message}) do
     {:message_create, Enum.random(@gobs), message.channel_id}
+  end
+
+  @jackie_chans [
+    "https://media.giphy.com/media/9pklZGUcreyfm/giphy.gif",
+    "https://media.giphy.com/media/h3e8Hr4bBndS0/giphy.gif",
+    "https://media.giphy.com/media/5xtDarKaxbNRjKhGe2c/giphy.gif",
+    "https://media.giphy.com/media/YGXr4RYSF0FW/giphy.gif",
+    "https://media.giphy.com/media/3o7abtRKyllr9iQZ1K/giphy.gif",
+    "https://media.giphy.com/media/10W7YOp7PaMVxu/giphy.gif",
+    "https://media.giphy.com/media/xT9DPLBZEnek4zvEQg/giphy.gif",
+    "https://media.giphy.com/media/xT9DPjOy0lxRvRGNXi/giphy.gif",
+    "https://media.giphy.com/media/9jKPtWhufybHa/giphy.gif"
+  ]
+  defp do_reply({:jackie_chan, message}) do
+    {:message_create, Enum.random(@jackie_chans), message.channel_id}
   end
 
   defp map_message(message = %Message{content: content}) do
