@@ -15,7 +15,8 @@ defmodule DiscotexBot.Responders.RandomResponder do
     {~r/\bkitten me\b/i, :kitten_me},
     {~r/\bpizza me\b/i, :pizza_me},
     {~r/\bship it\b/i, :ship_it},
-    {~r/\btable flip\b/i, :table_flip}
+    {~r/\btable flip\b/i, :table_flip},
+    {~r/\bvalidate me\b/i, :validate_me}
   ]
 
   def responds_to?(message) do
@@ -373,6 +374,17 @@ defmodule DiscotexBot.Responders.RandomResponder do
   ]
   defp do_reply({:table_flip, message}) do
     {:message_create, Enum.random(@table_flips), message.channel_id}
+  end
+
+  @validations [
+    "https://s3.amazonaws.com/assets.choremonster.com/hubot/chowyunfat.gif",
+    "https://s3.amazonaws.com/assets.choremonster.com/hubot/phil.gif",
+    "http://i.imgur.com/0b7zA.gif",
+    "https://media.giphy.com/media/vp5ZHZ6OI31LO/giphy.gif",
+    "http://i.imgur.com/jdIgXtN.gif"
+  ]
+  defp do_reply({:validate_me, message}) do
+    {:message_create, Enum.random(@validations), message.channel_id}
   end
 
   defp map_message(message = %Message{content: content}) do
