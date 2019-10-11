@@ -70,7 +70,9 @@ defmodule DiscotexBot.Responders.SimpleResponder do
   end
 
   defp do_reply({:thanks_obama, message = %Message{}}) do
-    {:message_create, "https://i.pinimg.com/originals/67/4f/4d/674f4d37697dbb0a269c43adc2929f9d.jpg", message.channel_id}
+    {:message_create,
+     "https://i.pinimg.com/originals/67/4f/4d/674f4d37697dbb0a269c43adc2929f9d.jpg",
+     message.channel_id}
   end
 
   defp do_reply({:welcome, message}) do
