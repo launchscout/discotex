@@ -17,6 +17,7 @@ defmodule DiscotexBot.Responders.SimpleResponder do
     {~r/\bno ragrets\b/i, :no_ragrets},
     {~r/\bnot saying it.*aliens\b/i, :aliens},
     {~r/\bthanks obama\b/i, :thanks_obama},
+    {~r/\bthis is fine\b/i, :this_is_fine},
     {~r/^you're welcome$/i, :welcome}
   ]
 
@@ -73,6 +74,10 @@ defmodule DiscotexBot.Responders.SimpleResponder do
     {:message_create,
      "https://i.pinimg.com/originals/67/4f/4d/674f4d37697dbb0a269c43adc2929f9d.jpg",
      message.channel_id}
+  end
+
+  defp do_reply({:this_is_fine, message}) do
+    {:message_create, "https://giphy.com/gifs/form-z9AUvhAEiXOqA", message.channel_id}
   end
 
   defp do_reply({:welcome, message}) do

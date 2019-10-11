@@ -154,8 +154,8 @@ defmodule DiscotexBot.SimpleResponderTest do
     {:message_create, _, 5} = assert Dispatch.handle_message_create(message, nil)
   end
 
-  test "responds to table flip" do
-    message = %Message{content: "table flip", author: %User{id: @user_id}, channel_id: 5}
+  test "responds to this is fine" do
+    message = %Message{content: "this is fine", author: %User{id: @user_id}, channel_id: 5}
     {:message_create, _, 5} = assert Dispatch.handle_message_create(message, nil)
   end
 end
