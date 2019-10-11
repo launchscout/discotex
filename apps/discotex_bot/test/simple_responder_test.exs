@@ -79,6 +79,27 @@ defmodule DiscotexBot.SimpleResponderTest do
     assert Dispatch.handle_message_create(message, nil) == :no_action
   end
 
+  @gir_url "https://tenor.com/view/dancing-gir-dog-invader-zim-gif-9005622"
+  test "responds to dance gir" do
+    message = %Message{content: "dance Gir", author: %User{id: @user_id}, channel_id: 5}
+    assert Dispatch.handle_message_create(message, nil) == {:message_create, @gir_url, 5}
+  end
+
+  test "responds to dance, Gir" do
+    message = %Message{content: "dance, Gir", author: %User{id: @user_id}, channel_id: 5}
+    assert Dispatch.handle_message_create(message, nil) == {:message_create, @gir_url, 5}
+  end
+
+  test "responds to DANCE, GIR!!" do
+    message = %Message{content: "DANCE, GIR!!", author: %User{id: @user_id}, channel_id: 5}
+    assert Dispatch.handle_message_create(message, nil) == {:message_create, @gir_url, 5}
+  end
+
+  test "doesn't respond to badance Girrrrr" do
+    message = %Message{content: "badance Girrrrr", author: %User{id: @user_id}, channel_id: 5}
+    assert Dispatch.handle_message_create(message, nil) == :no_action
+  end
+
   test "responds to not saying it's aliens" do
     message = %Message{
       content: "not saying it's aliens",
