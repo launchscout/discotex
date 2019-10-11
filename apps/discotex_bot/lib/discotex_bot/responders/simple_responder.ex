@@ -20,6 +20,7 @@ defmodule DiscotexBot.Responders.SimpleResponder do
     {~r/\bthanks obama\b/i, :thanks_obama},
     {~r/\bthis is fine\b/i, :this_is_fine},
     {~r/\bvisible confusion\b/i, :visible_confusion},
+    {~r/\bwhere's the pizza\b/i, :where_is_the_pizza},
     {~r/^you're welcome$/i, :welcome}
   ]
 
@@ -92,6 +93,10 @@ defmodule DiscotexBot.Responders.SimpleResponder do
 
   defp do_reply({:welcome, message}) do
     {:message_create, "https://giphy.com/gifs/hqg-tXTqLBYNf0N7W", message.channel_id}
+  end
+
+  defp do_reply({:where_is_the_pizza, message}) do
+    {:message_create, "http://media.giphy.com/media/TWOlDspB628Rq/giphy.gif", message.channel_id}
   end
 
   defp map_message(message = %Message{content: content}) do
