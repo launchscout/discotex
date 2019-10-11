@@ -14,7 +14,8 @@ defmodule DiscotexBot.Responders.RandomResponder do
     {~r/\bjackie chan\b/i, :jackie_chan},
     {~r/\bkitten me\b/i, :kitten_me},
     {~r/\bpizza me\b/i, :pizza_me},
-    {~r/\bship it\b/i, :ship_it}
+    {~r/\bship it\b/i, :ship_it},
+    {~r/\btable flip\b/i, :table_flip}
   ]
 
   def responds_to?(message) do
@@ -360,6 +361,18 @@ defmodule DiscotexBot.Responders.RandomResponder do
   ]
   defp do_reply({:ship_it, message}) do
     {:message_create, Enum.random(@squirrels), message.channel_id}
+  end
+
+  @table_flips [
+    "https://media.giphy.com/media/X83Y7r03T6uty/giphy.gif",
+    "https://media.giphy.com/media/BmnbtcKKBGqfS/giphy.gif",
+    "https://media.giphy.com/media/MXWpHJhkIDFU4/giphy.gif",
+    "https://media.giphy.com/media/htKsHr2W6Y6Qg/giphy.gif",
+    "https://media.giphy.com/media/IboGSjkXaOre0/giphy.gif",
+    "http://i.imgur.com/ForPOJQ.gif"
+  ]
+  defp do_reply({:table_flip, message}) do
+    {:message_create, Enum.random(@table_flips), message.channel_id}
   end
 
   defp map_message(message = %Message{content: content}) do
