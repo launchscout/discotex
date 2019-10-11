@@ -13,7 +13,8 @@ defmodule DiscotexBot.Responders.RandomResponder do
     {~r/\bgob it\b/i, :gob_it},
     {~r/\bjackie chan\b/i, :jackie_chan},
     {~r/\bkitten me\b/i, :kitten_me},
-    {~r/\bpizza me\b/i, :pizza_me}
+    {~r/\bpizza me\b/i, :pizza_me},
+    {~r/\bship it\b/i, :ship_it}
   ]
 
   def responds_to?(message) do
@@ -346,6 +347,19 @@ defmodule DiscotexBot.Responders.RandomResponder do
   ]
   defp do_reply({:pizza_me, message}) do
     {:message_create, Enum.random(@pizzas), message.channel_id}
+  end
+
+  @squirrels [
+    "http://shipitsquirrel.github.io/images/ship%20it%20squirrel.png",
+    "http://28.media.tumblr.com/tumblr_lybw63nzPp1r5bvcto1_500.jpg",
+    "http://i.imgur.com/DPVM1.png",
+    "http://d2f8dzk2mhcqts.cloudfront.net/0772_PEW_Roundup/09_Squirrel.jpg",
+    "http://www.cybersalt.org/images/funnypictures/s/supersquirrel.jpg",
+    "http://www.zmescience.com/wp-content/uploads/2010/09/squirrel.jpg",
+    "http://1.bp.blogspot.com/_v0neUj-VDa4/TFBEbqFQcII/AAAAAAAAFBU/E8kPNmF1h1E/s640/squirrelbacca-thumb.jpg"
+  ]
+  defp do_reply({:ship_it, message}) do
+    {:message_create, Enum.random(@squirrels), message.channel_id}
   end
 
   defp map_message(message = %Message{content: content}) do
