@@ -18,6 +18,7 @@ defmodule DiscotexBot.Responders.SimpleResponder do
     {~r/\bnot saying it.*aliens\b/i, :aliens},
     {~r/\bthanks obama\b/i, :thanks_obama},
     {~r/\bthis is fine\b/i, :this_is_fine},
+    {~r/\bvisible confusion\b/i, :visible_confusion},
     {~r/^you're welcome$/i, :welcome}
   ]
 
@@ -78,6 +79,10 @@ defmodule DiscotexBot.Responders.SimpleResponder do
 
   defp do_reply({:this_is_fine, message}) do
     {:message_create, "https://giphy.com/gifs/form-z9AUvhAEiXOqA", message.channel_id}
+  end
+
+  defp do_reply({:visible_confusion, message}) do
+    {:message_create, "https://gph.is/2Qmy2Or", message.channel_id}
   end
 
   defp do_reply({:welcome, message}) do
