@@ -16,7 +16,8 @@ defmodule DiscotexBot.Responders.RandomResponder do
     {~r/\bpizza me\b/i, :pizza_me},
     {~r/\bship it\b/i, :ship_it},
     {~r/\btable flip\b/i, :table_flip},
-    {~r/\bvalidate me\b/i, :validate_me}
+    {~r/\bvalidate me\b/i, :validate_me},
+    {~r/\bsummon gir\b/i, :gir_me}
   ]
 
   def responds_to?(message) do
@@ -385,6 +386,19 @@ defmodule DiscotexBot.Responders.RandomResponder do
   ]
   defp do_reply({:validate_me, message}) do
     {:message_create, Enum.random(@validations), message.channel_id}
+  end
+
+  @gir [
+    "https://media.giphy.com/media/WD4WsLb59c1Ww/giphy.gif",
+    "https://media.giphy.com/media/yRLcwNADQ2NuE/giphy.gif",
+    "https://media.giphy.com/media/AyAHZ3Q0MgpeU/giphy.gif",
+    "https://media.giphy.com/media/YsHoFItl0vSTK/giphy.gif",
+    "https://media.giphy.com/media/vHuc4kluLHhHW/giphy.gif",
+    "https://media.giphy.com/media/51sohge5oKVWw/giphy.gif",
+    "https://media.giphy.com/media/ppRqWchpUIUN2/giphy.gif"
+  ]
+  defp do_reply({:gir_me, message}) do
+    {:message_create, Enum.random(@gir), message.channel_id}
   end
 
   defp map_message(message = %Message{content: content}) do
