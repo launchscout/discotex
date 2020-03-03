@@ -1,9 +1,19 @@
 defmodule DiscotexWeb.Endpoint do
   use Phoenix.Endpoint, otp_app: :discotex_web
 
-  socket "/socket", DiscotexWeb.UserSocket,
-    websocket: [timeout: 45_000],
-    longpoll: false
+  @session_options [
+    store: :cookie,
+    key: "_discotex_key",
+    signing_salt: "xm8aYCG/"
+  ]
+
+  if Application.get_env(:your_app, :sql_sandbox) do
+    plug(Phoenix.Ecto.SQL.Sandbox)
+  end
+
+  socket("/live", Phoenix.LiveView.Socket,
+    websocket: [timeout: 45_000, connect_info: [session: @session_options]]
+  )
 
   # Serve at "/" the static files from "priv/static" directory.
   #
@@ -34,13 +44,7 @@ defmodule DiscotexWeb.Endpoint do
   plug Plug.MethodOverride
   plug Plug.Head
 
-  # The session will be stored in the cookie and signed,
-  # this means its contents can be read but not tampered with.
-  # Set :encryption_salt if you would also like to encrypt it.
-  plug Plug.Session,
-    store: :cookie,
-    key: "_discotex_web_key",
-    signing_salt: "rGDC30rT"
+  plug(Plug.Session, @session_options)
 
   plug DiscotexWeb.Router
 end

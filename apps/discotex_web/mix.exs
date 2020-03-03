@@ -29,7 +29,7 @@ defmodule DiscotexWeb.MixProject do
   end
 
   # Specifies which paths to compile per environment.
-  defp elixirc_paths(:test), do: ["lib", "test/support"]
+  defp elixirc_paths(:test), do: ["lib", "test/support", "test/discotex_web/features/pages"]
   defp elixirc_paths(_), do: ["lib"]
 
   # Specifies your project dependencies.
@@ -37,15 +37,23 @@ defmodule DiscotexWeb.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
-      {:phoenix, "~> 1.4.1"},
-      {:phoenix_pubsub, "~> 1.1"},
-      {:phoenix_ecto, "~> 4.0"},
+      {:bypass, "~> 1.0", only: :test},
+      {:credo, "~> 1.1.0", only: [:dev, :test], runtime: false},
+      {:discotex, in_umbrella: true},
+      {:ecto_sql, "~> 3.3"},
+      {:ex_machina, "~> 2.2", only: [:dev, :test]},
+      {:gettext, "~> 0.11"},
+      {:hound, "~> 1.0", [runtime: false, only: :test]},
+      {:jason, "~> 1.0"},
+      {:oauth2, "~> 0.9.2"},
+      {:phoenix, "~> 1.4.3"},
+      {:phoenix_ecto, "~> 4.1"},
       {:phoenix_html, "~> 2.11"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
-      {:gettext, "~> 0.11"},
-      {:discotex, in_umbrella: true},
-      {:jason, "~> 1.0"},
-      {:plug_cowboy, "~> 2.0"}
+      {:phoenix_live_view, "~> 0.8"},
+      {:phoenix_pubsub, "~> 1.1"},
+      {:plug_cowboy, "~> 2.0"},
+      {:postgrex, ">= 0.0.0"}
     ]
   end
 

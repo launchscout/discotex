@@ -22,6 +22,7 @@ defmodule DiscotexWeb do
       use Phoenix.Controller, namespace: DiscotexWeb
       import Plug.Conn
       import DiscotexWeb.Gettext
+      import Phoenix.LiveView.Controller, only: [live_render: 3]
       alias DiscotexWeb.Router.Helpers, as: Routes
     end
   end
@@ -49,6 +50,7 @@ defmodule DiscotexWeb do
       use Phoenix.Router
       import Plug.Conn
       import Phoenix.Controller
+      import Phoenix.LiveView.Router
     end
   end
 

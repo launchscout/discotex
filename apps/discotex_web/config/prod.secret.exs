@@ -8,4 +8,5 @@ use Mix.Config
 # file or create a script for recreating it, since it's
 # kept out of version control and might be hard to recover
 # or recreate for your teammates (or yourself later on).
-config :discotex_web, DiscotexWeb.Endpoint, secret_key_base: System.get_env("SECRET_KEY_BASE")
+config :discotex_web, DiscotexWeb.Endpoint,
+  secret_key_base: System.get_env("SECRET_KEY_BASE")

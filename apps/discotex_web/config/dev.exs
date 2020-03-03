@@ -56,6 +56,7 @@ config :discotex_web, DiscotexWeb.Endpoint,
       ~r{priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$},
       ~r{priv/gettext/.*(po)$},
       ~r{lib/discotex_web/views/.*(ex)$},
-      ~r{lib/discotex_web/templates/.*(eex)$}
+      ~r{lib/discotex_web/templates/.*(eex)$},
+      ~r{lib/discotex_web/live/.*(ex)$}
     ]
   ]

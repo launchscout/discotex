@@ -4,9 +4,10 @@ defmodule DiscotexWeb.Router do
   pipeline :browser do
     plug :accepts, ["html"]
     plug :fetch_session
-    plug :fetch_flash
+    plug :fetch_live_flash
     plug :protect_from_forgery
     plug :put_secure_browser_headers
+    plug(DiscotexWeb.Auth, repo: Discotex.Repo)
   end
 
   pipeline :api do
@@ -17,6 +18,14 @@ defmodule DiscotexWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :index
+  end
+
+  scope "/auth", DiscotexWeb do
+    pipe_through(:browser)
+
+    get("/:provider", AuthController, :index)
+    get("/:provider/callback", AuthController, :callback)
+    delete("/logout", AuthController, :delete)
   end
 
   # Other scopes may use custom stacks.

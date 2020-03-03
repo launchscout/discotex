@@ -14,7 +14,10 @@ config :discotex_web, DiscotexWeb.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "XlE5lmFvHYjjJzqeBdLh4wyjapo/iiu1zpFF9WCWezdYXCYtIh0s2tJDb8TVs/DN",
   render_errors: [view: DiscotexWeb.ErrorView, accepts: ~w(html json)],
-  pubsub: [name: DiscotexWeb.PubSub, adapter: Phoenix.PubSub.PG2]
+  pubsub: [name: DiscotexWeb.PubSub, adapter: Phoenix.PubSub.PG2],
+  live_view: [
+    signing_salt: "LzVbjmMJyi7fO4b3gM+r4ILzQmnn5wLe"
+  ]
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
