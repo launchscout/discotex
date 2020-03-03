@@ -21,10 +21,10 @@ jobs:
           command: |
             mix local.hex --force
             mix local.rebar --force
-      # - run:
-      #    name: Start Chrome Driver
-      #    command: /usr/local/bin/chromedriver
-      #    background: true
+      - run:
+         name: Start Chrome Driver
+         command: /usr/local/bin/chromedriver
+         background: true
       - run:
           name: "ELIXIR_VERSION.lock"
           command: echo "${ELIXIR_VERSION}" > ELIXIR_VERSION.lock
