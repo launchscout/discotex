@@ -79,17 +79,6 @@ defmodule DiscotexBot.SimpleResponderTest do
     assert Dispatch.handle_message_create(message, nil) == :no_action
   end
 
-  @tim_url "https://media.giphy.com/media/VJrZER9jC0RY4WA8DJ/giphy.gif"
-  test "responds to dance tim" do
-    message = %Message{content: "dance tim", author: %User{id: @user_id}, channel_id: 5}
-    assert Dispatch.handle_message_create(message, nil) == {:message_create, @tim_url, 5}
-  end
-
-  test "responds to dance, Tim" do
-    message = %Message{content: "dance, Tim", author: %User{id: @user_id}, channel_id: 5}
-    assert Dispatch.handle_message_create(message, nil) == {:message_create, @tim_url, 5}
-  end
-
   @gir_url "https://tenor.com/view/dancing-gir-dog-invader-zim-gif-9005622"
   test "responds to dance gir" do
     message = %Message{content: "dance Gir", author: %User{id: @user_id}, channel_id: 5}
