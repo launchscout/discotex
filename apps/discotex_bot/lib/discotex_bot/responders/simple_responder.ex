@@ -12,6 +12,7 @@ defmodule DiscotexBot.Responders.SimpleResponder do
     {~r/\bhi\b/i, :hi},
     {~r/\bbees\b/i, :bees},
     {~r/\bdance,? Haley\b/i, :dance_haley},
+    {~r/\bdance,? Tim\b/i, :dance_tim},
     {~r/\bdance,? gir\b/i, :dance_gir},
     {~r/\bdrop the bass\b/i, :drop_the_bass},
     {~r/\bheavy breathing\b/i, :heavy_breathing},
@@ -56,6 +57,11 @@ defmodule DiscotexBot.Responders.SimpleResponder do
 
   defp do_reply({:dance_haley, message}) do
     {:message_create, "http://i.imgur.com/92H3YUk.gif", message.channel_id}
+  end
+
+  defp do_reply({:dance_tim, message}) do
+    {:message_create, "https://media.giphy.com/media/VJrZER9jC0RY4WA8DJ/giphy.gif",
+     message.channel_id}
   end
 
   defp do_reply({:dance_gir, message}) do
