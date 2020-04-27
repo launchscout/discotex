@@ -9,6 +9,7 @@ defmodule DiscotexBot.Responders.RandomResponder do
   @message_types [
     {~r/\badventure me\b/i, :adventure_me},
     {~r/\bcatbug me\b/i, :catbug_me},
+    {~r/\bdance,? Tim\b/i, :dance_tim},
     {~r/\benlighten me\b/i, :enlighten_me},
     {~r/\bgob it\b/i, :gob_it},
     {~r/\bjackie chan\b/i, :jackie_chan},
@@ -80,6 +81,15 @@ defmodule DiscotexBot.Responders.RandomResponder do
   ]
   defp do_reply({:catbug_me, message}) do
     {:message_create, Enum.random(@catbugs), message.channel_id}
+  end
+
+  @dancing_tims [
+    "https://media.giphy.com/media/VJrZER9jC0RY4WA8DJ/giphy.gif",
+    "https://media.giphy.com/media/MbFoCLXWiML6HeCQ55/giphy.gif",
+    "https://media.giphy.com/media/XGsI9o4aSrMMJ0LjAL/giphy.gif"
+  ]
+  defp do_reply({:dance_tim, message}) do
+    {:message_create, Enum.random(@dancing_tims), message.channel_id}
   end
 
   @buddha [
