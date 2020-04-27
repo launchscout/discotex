@@ -86,7 +86,8 @@ defmodule DiscotexBot.Responders.RandomResponder do
   @dancing_tims [
     "https://media.giphy.com/media/VJrZER9jC0RY4WA8DJ/giphy.gif",
     "https://media.giphy.com/media/MbFoCLXWiML6HeCQ55/giphy.gif",
-    "https://media.giphy.com/media/XGsI9o4aSrMMJ0LjAL/giphy.gif"
+    "https://media.giphy.com/media/XGsI9o4aSrMMJ0LjAL/giphy.gif",
+    "https://media.giphy.com/media/XE1tgU0lgMOgB3TiNu/giphy.gif"
   ]
   defp do_reply({:dance_tim, message}) do
     {:message_create, Enum.random(@dancing_tims), message.channel_id}
