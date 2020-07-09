@@ -4,6 +4,7 @@ defmodule DiscotexBot.Application do
   use Application
 
   alias DiscotexBot.DiscordClient
+  alias DiscotexBot.ConversationManager
 
   def start(type, args) do
     if should_start?(DiscotexBot.DiscordClient) do
@@ -16,7 +17,8 @@ defmodule DiscotexBot.Application do
   defp children do
     [
       configure(DiscordClient),
-      {Registry, keys: :unique, name: Registry.ChannelContexts}
+      {Registry, keys: :unique, name: Registry.ChannelContexts},
+      ConversationManager
     ]
     |> List.flatten()
   end

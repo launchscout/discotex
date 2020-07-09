@@ -10,10 +10,20 @@ defmodule DiscotexBot.DiscordClient do
   alias DiscotexBot.Dispatch
   alias Nostrum.Api
   alias Nostrum.Cache.Me
-  alias Nostrum.Struct.{Emoji, Message}
+  alias Nostrum.Struct.{Channel, Emoji, Message}
 
   def start_link do
     Consumer.start_link(__MODULE__)
+  end
+
+  def create_dm(user_id) do
+    case Api.create_dm(user_id) do
+      {:ok, %Channel{id: channel_id}} ->
+        {:ok, channel_id}
+      error ->
+        Logger.warn("Received API error response: #{inspect(error)}")
+        error
+    end
   end
 
   def send_message(content, channel_id) do

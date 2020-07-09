@@ -9,7 +9,8 @@ defmodule Discotex.Application do
 
   def start(_type, _args) do
     children = [
-      Repo
+      Repo,
+      {Registry, keys: :duplicate, name: Registry.AccountEvents, id: Registry.AccountEvents}
     ]
 
     Supervisor.start_link(children, strategy: :one_for_one, name: Discotex.Supervisor)

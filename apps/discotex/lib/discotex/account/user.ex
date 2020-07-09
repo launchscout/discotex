@@ -7,20 +7,26 @@ defmodule Discotex.Account.User do
 
   import Ecto.Changeset
 
+  alias Discotex.DiscordSnowflake
+
   @type t :: %__MODULE__{
-          avatar: binary(),
-          email: binary(),
-          github_id: binary(),
-          username: binary(),
-          name: binary()
-        }
+    avatar: binary(),
+    invitation_code: Ecto.UUID.t(),
+    email: binary(),
+    discord_id: integer(),
+    github_id: binary(),
+    username: binary(),
+    name: binary()
+  }
 
   schema "users" do
     field(:avatar, :string)
+    field(:discord_id, DiscordSnowflake)
     field(:email, :string)
     field(:github_id, :string)
-    field(:username, :string)
     field(:name, :string)
+    field(:username, :string)
+    field(:invitation_code, Ecto.UUID)
 
     timestamps()
   end
@@ -28,9 +34,10 @@ defmodule Discotex.Account.User do
   @doc false
   def changeset(user, attrs) do
     user
-    |> cast(attrs, [:avatar, :email, :github_id, :username, :name])
-    |> validate_required([:email, :username, :github_id])
+    |> cast(attrs, [:avatar, :email, :github_id, :username, :name, :discord_id, :invitation_code])
+    |> validate_required([:email])
     |> unique_constraint(:username, name: :unique_username)
     |> unique_constraint(:email, name: :unique_email)
+    |> unique_constraint(:invitation_code, name: :unique_invitation_code)
   end
 end
