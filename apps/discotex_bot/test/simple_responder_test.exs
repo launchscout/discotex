@@ -100,6 +100,14 @@ defmodule DiscotexBot.SimpleResponderTest do
     assert Dispatch.handle_message_create(message, nil) == :no_action
   end
 
+  test "responds to dance party" do
+    message = %Message{content: "dance party", author: %User{id: @user_id}, channel_id: 5}
+
+    assert Dispatch.handle_message_create(message, nil) ==
+             {:message_create,
+              "<:dance_mario_luigi:775771113363603486> <:rave_shark:413723308492849173>", 5}
+  end
+
   test "responds to not saying it's aliens" do
     message = %Message{
       content: "not saying it's aliens",

@@ -13,6 +13,7 @@ defmodule DiscotexBot.Responders.SimpleResponder do
     {~r/\bbees\b/i, :bees},
     {~r/\bdance,? Haley\b/i, :dance_haley},
     {~r/\bdance,? gir\b/i, :dance_gir},
+    {~r/\bdance party\b/i, :dance_party},
     {~r/\bdrop the bass\b/i, :drop_the_bass},
     {~r/\bheavy breathing\b/i, :heavy_breathing},
     {~r/\bno ragrets\b/i, :no_ragrets},
@@ -60,6 +61,11 @@ defmodule DiscotexBot.Responders.SimpleResponder do
 
   defp do_reply({:dance_gir, message}) do
     {:message_create, "https://tenor.com/view/dancing-gir-dog-invader-zim-gif-9005622",
+     message.channel_id}
+  end
+
+  defp do_reply({:dance_party, message}) do
+    {:message_create, "<:dance_mario_luigi:775771113363603486> <:rave_shark:413723308492849173>",
      message.channel_id}
   end
 
