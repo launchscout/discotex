@@ -4,7 +4,8 @@ defmodule DiscotexBot.Responders.SimpleResponder do
   """
 
   # remove Discord Struct references
-  alias Nostrum.Struct.{Message, User}
+  alias DiscotexBot.DiscordClient
+  alias Nostrum.Struct.{Emoji, Message, User}
 
   @message_types [
     {~r/\bayy lmao\b/i, :ayy_lmao},
@@ -64,9 +65,8 @@ defmodule DiscotexBot.Responders.SimpleResponder do
      message.channel_id}
   end
 
-  defp do_reply({:dance_party, message}) do
-    {:message_create, "<:dance_mario_luigi:775771113363603486> <:rave_shark:413723308492849173>",
-     message.channel_id}
+  defp do_reply({:dance_party, %{channel_id: channel_id, guild_id: guild_id}}) do
+    {:message_create, all_dancing_emoji_message(guild_id), channel_id}
   end
 
   defp do_reply({:drop_the_bass, message = %Message{}}) do
@@ -109,6 +109,15 @@ defmodule DiscotexBot.Responders.SimpleResponder do
 
   defp do_reply({:where_is_the_pizza, message}) do
     {:message_create, "http://media.giphy.com/media/TWOlDspB628Rq/giphy.gif", message.channel_id}
+  end
+
+  defp all_dancing_emoji_message(guild_id) do
+    guild_id
+    |> DiscotexBot.list_guild_emojis()
+    |> Enum.filter(& &1.animated)
+    |> Enum.map(&Emoji.api_name/1)
+    |> Enum.map(&"<:#{&1}>")
+    |> Enum.join(" ")
   end
 
   defp map_message(message = %Message{content: content}) do
