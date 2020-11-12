@@ -32,6 +32,8 @@ defmodule DiscotexBot.Responders.RandomResponder do
     message |> map_message() |> do_reply()
   end
 
+  def message_types, do: @message_types
+
   @adventures [
     "http://i.imgur.com/eaF2r1U.gif",
     "http://media.giphy.com/media/j2rCxv6luaLq8/giphy.gif",

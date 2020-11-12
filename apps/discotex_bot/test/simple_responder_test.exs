@@ -9,6 +9,8 @@ defmodule DiscotexBot.SimpleResponderTest do
   doctest Dispatch
 
   @user_id "Rit Tomney1233533"
+  @discotex_id "550303830684860428"
+
   test "Discotex responds to hi" do
     message = %Message{content: "hi", author: %User{id: @user_id}, channel_id: 5}
 
@@ -54,6 +56,38 @@ defmodule DiscotexBot.SimpleResponderTest do
     message = %Message{
       content: "hello you're welcome",
       author: %User{id: @user_id},
+      channel_id: 5
+    }
+
+    assert Dispatch.handle_message_create(message, nil) == :no_action
+  end
+
+  test "Discotex responds to commands when mentioned" do
+    message = %Message{
+      content: "commands",
+      author: %User{id: @user_id},
+      mentions: [%User{id: @discotex_id}],
+      channel_id: 5
+    }
+
+    assert {:message_create, list_of_commands, 5} = Dispatch.handle_message_create(message, nil)
+
+    assert Enum.all?(
+             ["bees", "this is fine", "poll results$", "pizza me"],
+             &(&1 in list_of_commands)
+           )
+  end
+
+  test "Discotex doesn't respond to commands when there's no mentions" do
+    message = %Message{content: "commands", author: %User{id: @user_id}, channel_id: 5}
+    assert Dispatch.handle_message_create(message, nil) == :no_action
+  end
+
+  test "Discotex doesn't respond to commands when not mentioned" do
+    message = %Message{
+      content: "commands",
+      author: %User{id: @user_id},
+      mentions: [%User{id: @user_id}],
       channel_id: 5
     }
 
