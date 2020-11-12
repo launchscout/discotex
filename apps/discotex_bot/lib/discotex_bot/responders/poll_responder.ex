@@ -23,6 +23,8 @@ defmodule DiscotexBot.Responders.PollResponder do
     message |> map_message() |> do_reply()
   end
 
+  def message_types, do: @message_types
+
   defp do_reply({:create_poll, message}) do
     pid = get_channel_state(message.channel_id)
     ChannelState.put(pid, :poll_message_id, message.id)
