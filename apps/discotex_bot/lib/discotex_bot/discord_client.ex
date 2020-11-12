@@ -39,6 +39,18 @@ defmodule DiscotexBot.DiscordClient do
     handle_api_response(Api.get_channel_message(channel_id, message_id))
   end
 
+  def list_guild_emojis(guild_id) do
+    response =
+      guild_id
+      |> Api.list_guild_emojis()
+      |> handle_api_response()
+
+    case response do
+      {:ok, emoji_list} -> emoji_list
+      _ -> []
+    end
+  end
+
   def handle_event(event = {:MESSAGE_CREATE, message = %Message{}, _ws_state}) do
     Logger.info("Event: #{inspect(event)}")
     respond(Dispatch.handle_message_create(message, Me.get()))

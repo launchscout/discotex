@@ -1,8 +1,10 @@
 defmodule DiscotexBot.SimpleResponderTest do
   use ExUnit.Case
 
+  import Mox
+
   alias DiscotexBot.Dispatch
-  alias Nostrum.Struct.{Message, User}
+  alias Nostrum.Struct.{Emoji, Message, User}
 
   doctest Dispatch
 
@@ -98,6 +100,27 @@ defmodule DiscotexBot.SimpleResponderTest do
   test "doesn't respond to badance Girrrrr" do
     message = %Message{content: "badance Girrrrr", author: %User{id: @user_id}, channel_id: 5}
     assert Dispatch.handle_message_create(message, nil) == :no_action
+  end
+
+  test "responds to dance party" do
+    DiscotexBot.RubberDuckClient
+    |> expect(:list_guild_emojis, fn _ ->
+      [
+        %Emoji{name: "dance_mario_luigi", id: 775_771_113_363_603_486, animated: true},
+        %Emoji{name: "rave_shark", id: 413_723_308_492_849_173, animated: true}
+      ]
+    end)
+
+    message = %Message{
+      content: "dance party",
+      author: %User{id: @user_id},
+      channel_id: 5,
+      guild_id: 7
+    }
+
+    assert Dispatch.handle_message_create(message, nil) ==
+             {:message_create,
+              "<:dance_mario_luigi:775771113363603486> <:rave_shark:413723308492849173>", 5}
   end
 
   test "responds to not saying it's aliens" do
