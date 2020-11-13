@@ -8,7 +8,7 @@ defmodule DiscotexBot.Responders.SimpleResponder do
   alias DiscotexBot.Responders.{PollResponder, RandomResponder, SimpleResponder}
   alias Nostrum.Struct.{Emoji, Message, User}
 
-  @discotex_id "550303830684860428"
+  @discotex_id 550_303_830_684_860_428
   @message_types [
     {~r/\bayy lmao\b/i, :ayy_lmao},
     {~r/\bchoir can\b/i, :choir_can},

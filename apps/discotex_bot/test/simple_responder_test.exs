@@ -9,7 +9,7 @@ defmodule DiscotexBot.SimpleResponderTest do
   doctest Dispatch
 
   @user_id "Rit Tomney1233533"
-  @discotex_id "550303830684860428"
+  @discotex_id 550_303_830_684_860_428
 
   test "Discotex responds to hi" do
     message = %Message{content: "hi", author: %User{id: @user_id}, channel_id: 5}
