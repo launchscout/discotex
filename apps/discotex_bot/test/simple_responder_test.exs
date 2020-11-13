@@ -70,11 +70,11 @@ defmodule DiscotexBot.SimpleResponderTest do
       channel_id: 5
     }
 
-    assert {:message_create, list_of_commands, 5} = Dispatch.handle_message_create(message, nil)
+    assert {:message_create, message_string, 5} = Dispatch.handle_message_create(message, nil)
 
     assert Enum.all?(
              ["bees", "this is fine", "poll results$", "pizza me"],
-             &(&1 in list_of_commands)
+             &String.contains?(message_string, &1)
            )
   end
 

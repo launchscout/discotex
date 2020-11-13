@@ -4,7 +4,6 @@ defmodule DiscotexBot.Responders.SimpleResponder do
   """
 
   # remove Discord Struct references
-  alias DiscotexBot.DiscordClient
   alias DiscotexBot.Responders.{PollResponder, RandomResponder, SimpleResponder}
   alias Nostrum.Struct.{Emoji, Message, User}
 
@@ -150,6 +149,7 @@ defmodule DiscotexBot.Responders.SimpleResponder do
     |> Enum.map(fn responder -> command_messages(responder.message_types) end)
     |> List.flatten()
     |> Enum.reject(&is_nil(&1))
+    |> Enum.join("\n")
   end
 
   defp mentions_discotex?(mentions) do
