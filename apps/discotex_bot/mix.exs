@@ -21,7 +21,8 @@ defmodule DiscotexBot.MixProject do
   def application do
     [
       mod: {DiscotexBot.Application, []},
-      extra_applications: [:logger, :runtime_tools]
+      extra_applications: [:logger, :runtime_tools],
+      included_applications: [:nostrum]
     ]
   end
 
@@ -30,7 +31,9 @@ defmodule DiscotexBot.MixProject do
     [
       {:discotex, in_umbrella: true},
       {:mox, "~> 0.5", only: :test},
-      {:nostrum, github: "tmecklem/nostrum", branch: "ratelimit"}
+      {:nostrum, "~> 0.4", app: false},
+      {:gun, "~> 1.3"},
+      {:httpoison, "~> 1.7"}
     ]
   end
 end

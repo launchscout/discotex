@@ -5,7 +5,11 @@ defmodule DiscotexBot.Application do
 
   alias DiscotexBot.DiscordClient
 
-  def start(_type, _args) do
+  def start(type, args) do
+    if should_start?(DiscotexBot.DiscordClient) do
+      Nostrum.Application.start(type, args)
+    end
+
     Supervisor.start_link(children(), strategy: :one_for_one, name: DiscotexBot.Supervisor)
   end
 
