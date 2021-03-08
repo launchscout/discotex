@@ -38,21 +38,21 @@ defmodule DiscotexWeb.MixProject do
   defp deps do
     [
       {:bypass, "~> 1.0", only: :test},
-      {:credo, "~> 1.1.0", only: [:dev, :test], runtime: false},
+      {:credo, "~> 1.4", only: [:dev, :test], runtime: false},
       {:discotex, in_umbrella: true},
-      {:ecto_sql, "~> 3.3"},
-      {:ex_machina, "~> 2.2", only: [:dev, :test]},
-      {:gettext, "~> 0.11"},
+      {:ecto_sql, "~> 3.4"},
+      {:ex_machina, "~> 2.4", only: [:dev, :test]},
+      {:gettext, "~> 0.18"},
       {:hound, "~> 1.0", [runtime: false, only: :test]},
-      {:jason, "~> 1.0"},
-      {:oauth2, "~> 0.9.2"},
+      {:jason, "~> 1.2"},
+      {:oauth2, "~> 2.0"},
       {:phoenix, "~> 1.4.3"},
       {:phoenix_ecto, "~> 4.1"},
-      {:phoenix_html, "~> 2.11"},
+      {:phoenix_html, "~> 2.14"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
-      {:phoenix_live_view, "~> 0.8"},
+      {:phoenix_live_view, "~> 0.13"},
       {:phoenix_pubsub, "~> 1.1"},
-      {:plug_cowboy, "~> 2.0"},
+      {:plug_cowboy, "~> 2.1.0"},
       {:postgrex, ">= 0.0.0"}
     ]
   end
