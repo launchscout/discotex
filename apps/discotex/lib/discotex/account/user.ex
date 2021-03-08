@@ -10,15 +10,15 @@ defmodule Discotex.Account.User do
   alias Discotex.DiscordSnowflake
 
   @type t :: %__MODULE__{
-    avatar: binary(),
-    invitation_code: Ecto.UUID.t(),
-    email: binary(),
-    discord_id: integer(),
-    github_id: binary(),
-    github_email: binary(),
-    username: binary(),
-    name: binary()
-  }
+          avatar: binary(),
+          invitation_code: Ecto.UUID.t(),
+          email: binary(),
+          discord_id: integer(),
+          github_id: binary(),
+          github_email: binary(),
+          username: binary(),
+          name: binary()
+        }
 
   schema "users" do
     field(:avatar, :string)
@@ -36,7 +36,16 @@ defmodule Discotex.Account.User do
   @doc false
   def changeset(user, attrs) do
     user
-    |> cast(attrs, [:avatar, :email, :github_id, :github_email, :username, :name, :discord_id, :invitation_code])
+    |> cast(attrs, [
+      :avatar,
+      :email,
+      :github_id,
+      :github_email,
+      :username,
+      :name,
+      :discord_id,
+      :invitation_code
+    ])
     |> validate_required([:email])
     |> unique_constraint(:username, name: :unique_username)
     |> unique_constraint(:email, name: :unique_email)

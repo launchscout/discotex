@@ -11,17 +11,26 @@ defmodule DiscotexBot.ConversationManager do
 
   def init(_opts) do
     # subscribe to account events
-    Account.subscribe
+    Account.subscribe()
 
     {:ok, %{}}
   end
 
-  def handle_info({:discord_user_added, %{discord_id: discord_id, invitation_code: invitation_code}}, dms) do
+  def handle_info(
+        {:discord_user_added, %{discord_id: discord_id, invitation_code: invitation_code}},
+        dms
+      ) do
     case chat_client().create_dm(discord_id) do
       {:ok, channel_id} ->
-        path = DiscotexWeb.Router.Helpers.auth_url(DiscotexWeb.Endpoint, :index, :github, invitation_code: invitation_code)
+        path =
+          DiscotexWeb.Router.Helpers.auth_url(DiscotexWeb.Endpoint, :index, :github,
+            invitation_code: invitation_code
+          )
+
         chat_client().send_message("Hi! I'm a bot. You should register here: #{path}", channel_id)
-      error -> Logger.error("Couldn't do the thing: #{inspect error}")
+
+      error ->
+        Logger.error("Couldn't do the thing: #{inspect(error)}")
     end
 
     {:noreply, dms}

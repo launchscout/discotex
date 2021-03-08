@@ -20,6 +20,7 @@ defmodule DiscotexBot.DiscordClient do
     case Api.create_dm(user_id) do
       {:ok, %Channel{id: channel_id}} ->
         {:ok, channel_id}
+
       error ->
         Logger.warn("Received API error response: #{inspect(error)}")
         error

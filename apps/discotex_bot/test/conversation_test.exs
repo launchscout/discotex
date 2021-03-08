@@ -5,7 +5,6 @@ defmodule DiscotexBot.ConversationTest do
 
   describe "init/1" do
     test "" do
-
     end
   end
 end

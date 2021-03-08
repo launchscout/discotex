@@ -47,16 +47,25 @@ defmodule Discotex.Account do
 
   def invite_discord_user(discord_id, email) do
     %User{}
-    |> User.changeset(%{discord_id: discord_id, email: email, invitation_code: Ecto.UUID.generate()})
+    |> User.changeset(%{
+      discord_id: discord_id,
+      email: email,
+      invitation_code: Ecto.UUID.generate()
+    })
     |> Repo.insert()
     |> case do
-         {:ok, %User{} = user} = success ->
-           notify_subscribers(:user_events,
-             {:discord_user_added, %{discord_id: user.discord_id, invitation_code: user.invitation_code}}
-           )
-           success
-         error -> error
-       end
+      {:ok, %User{} = user} = success ->
+        notify_subscribers(
+          :user_events,
+          {:discord_user_added,
+           %{discord_id: user.discord_id, invitation_code: user.invitation_code}}
+        )
+
+        success
+
+      error ->
+        error
+    end
   end
 
   def find_or_create_from_github(github_user, invitation_code) do
@@ -64,13 +73,14 @@ defmodule Discotex.Account do
     |> where(github_id: ^github_user.github_id)
     |> Repo.one()
     |> case do
-         nil ->
-           case Repo.one(from u in User, where: u.invitation_code == ^invitation_code) do
-             nil -> {:error, :no_invitation}
-             user -> update_user(user, Map.put(github_user, :invitation_code, nil))
+      nil ->
+        case Repo.one(from u in User, where: u.invitation_code == ^invitation_code) do
+          nil -> {:error, :no_invitation}
+          user -> update_user(user, Map.put(github_user, :invitation_code, nil))
+        end
 
-           end
-      user -> {:ok, user}
+      user ->
+        {:ok, user}
     end
   end
 
