@@ -9,6 +9,12 @@ defmodule DiscotexWeb.AuthController do
   This action is reached via `/auth/:provider` and redirects to the OAuth2 provider
   based on the chosen strategy.
   """
+  def index(conn, %{"provider" => provider, "invitation_code" => invitation_code}) do
+    conn
+    |> put_session(:invitation_code, invitation_code)
+    |> redirect(external: authorize_url!(provider))
+  end
+
   def index(conn, %{"provider" => provider}) do
     redirect(conn, external: authorize_url!(provider))
   end
@@ -27,9 +33,10 @@ defmodule DiscotexWeb.AuthController do
   access protected resources on behalf of the user.
   """
   def callback(conn, %{"provider" => provider, "code" => code}) do
+    invitation_code = get_session(conn, :invitation_code)
     client = get_token!(provider, code)
     oauth_user = get_user!(provider, client)
-    {:ok, user} = Account.find_or_create_from_github(oauth_user)
+    {:ok, user} = Account.find_or_create_from_github(oauth_user, invitation_code)
 
     conn
     |> put_session(:user_id, user.id)
@@ -58,7 +65,7 @@ defmodule DiscotexWeb.AuthController do
       end
 
     %{
-      email: email,
+      github_email: email,
       name: user["name"],
       github_id: user["id"] |> Integer.to_string(),
       username: user["login"],

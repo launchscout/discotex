@@ -15,6 +15,7 @@ defmodule Discotex.OAuth.GitHub do
     |> Application.get_env(__MODULE__)
     |> Keyword.merge(strategy: GitHub)
     |> Client.new()
+    |> Client.put_serializer("application/json", Jason)
   end
 
   def authorize_url!(params \\ []) do

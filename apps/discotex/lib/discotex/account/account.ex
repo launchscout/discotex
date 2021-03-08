@@ -4,9 +4,13 @@ defmodule Discotex.Account do
   """
 
   import Ecto.Query, warn: false
-  alias Discotex.Repo
-
   alias Discotex.Account.User
+  alias Discotex.Repo
+  alias Ecto.UUID
+
+  def subscribe do
+    Registry.register(Registry.AccountEvents, :user_events, [])
+  end
 
   @doc """
   Returns the list of users.
@@ -37,13 +41,46 @@ defmodule Discotex.Account do
   """
   def get_user!(id), do: Repo.get!(User, id)
 
-  def find_or_create_from_github(github_user) do
+  def get_user_by_email(email) do
+    Repo.get_by(User, email: email)
+  end
+
+  def invite_discord_user(discord_id, email) do
+    %User{}
+    |> User.changeset(%{
+      discord_id: discord_id,
+      email: email,
+      invitation_code: UUID.generate()
+    })
+    |> Repo.insert()
+    |> case do
+      {:ok, %User{} = user} = success ->
+        notify_subscribers(
+          :user_events,
+          {:discord_user_added,
+           %{discord_id: user.discord_id, invitation_code: user.invitation_code}}
+        )
+
+        success
+
+      error ->
+        error
+    end
+  end
+
+  def find_or_create_from_github(github_user, invitation_code) do
     User
     |> where(github_id: ^github_user.github_id)
     |> Repo.one()
     |> case do
-      nil -> create_user(github_user)
-      user -> {:ok, user}
+      nil ->
+        case Repo.one(from u in User, where: u.invitation_code == ^invitation_code) do
+          nil -> {:error, :no_invitation}
+          user -> update_user(user, Map.put(github_user, :invitation_code, nil))
+        end
+
+      user ->
+        {:ok, user}
     end
   end
 
@@ -110,5 +147,11 @@ defmodule Discotex.Account do
   """
   def change_user(user = %User{}) do
     User.changeset(user, %{})
+  end
+
+  defp notify_subscribers(topic, message) do
+    Registry.dispatch(Registry.AccountEvents, topic, fn entries ->
+      for {pid, _} <- entries, do: send(pid, message)
+    end)
   end
 end
