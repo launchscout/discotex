@@ -4,9 +4,9 @@ defmodule Discotex.Account do
   """
 
   import Ecto.Query, warn: false
-  alias Discotex.Repo
-
   alias Discotex.Account.User
+  alias Discotex.Repo
+  alias Ecto.UUID
 
   def subscribe do
     Registry.register(Registry.AccountEvents, :user_events, [])
@@ -50,7 +50,7 @@ defmodule Discotex.Account do
     |> User.changeset(%{
       discord_id: discord_id,
       email: email,
-      invitation_code: Ecto.UUID.generate()
+      invitation_code: UUID.generate()
     })
     |> Repo.insert()
     |> case do

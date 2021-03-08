@@ -3,8 +3,8 @@ defmodule DiscotexBot.Application do
 
   use Application
 
-  alias DiscotexBot.DiscordClient
   alias DiscotexBot.ConversationManager
+  alias DiscotexBot.DiscordClient
 
   def start(type, args) do
     if should_start?(DiscotexBot.DiscordClient) do

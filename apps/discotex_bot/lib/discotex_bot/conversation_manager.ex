@@ -4,6 +4,7 @@ defmodule DiscotexBot.ConversationManager do
   require Logger
 
   alias Discotex.Account
+  alias DiscotexWeb.Router.Helpers
 
   def start_link(opts) do
     GenServer.start_link(__MODULE__, :ok, opts)
@@ -23,9 +24,7 @@ defmodule DiscotexBot.ConversationManager do
     case chat_client().create_dm(discord_id) do
       {:ok, channel_id} ->
         path =
-          DiscotexWeb.Router.Helpers.auth_url(DiscotexWeb.Endpoint, :index, :github,
-            invitation_code: invitation_code
-          )
+          Helpers.auth_url(DiscotexWeb.Endpoint, :index, :github, invitation_code: invitation_code)
 
         chat_client().send_message("Hi! I'm a bot. You should register here: #{path}", channel_id)
 
