@@ -15,6 +15,7 @@ defmodule Discotex.Account.User do
     email: binary(),
     discord_id: integer(),
     github_id: binary(),
+    github_email: binary(),
     username: binary(),
     name: binary()
   }
@@ -24,6 +25,7 @@ defmodule Discotex.Account.User do
     field(:discord_id, DiscordSnowflake)
     field(:email, :string)
     field(:github_id, :string)
+    field(:github_email, :string)
     field(:name, :string)
     field(:username, :string)
     field(:invitation_code, Ecto.UUID)
@@ -34,7 +36,7 @@ defmodule Discotex.Account.User do
   @doc false
   def changeset(user, attrs) do
     user
-    |> cast(attrs, [:avatar, :email, :github_id, :username, :name, :discord_id, :invitation_code])
+    |> cast(attrs, [:avatar, :email, :github_id, :github_email, :username, :name, :discord_id, :invitation_code])
     |> validate_required([:email])
     |> unique_constraint(:username, name: :unique_username)
     |> unique_constraint(:email, name: :unique_email)

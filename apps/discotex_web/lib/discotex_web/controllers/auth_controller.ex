@@ -9,13 +9,13 @@ defmodule DiscotexWeb.AuthController do
   This action is reached via `/auth/:provider` and redirects to the OAuth2 provider
   based on the chosen strategy.
   """
-  def index(conn, %{"provider" => provider, "invitation_code" => invitation_code} = params) do
+  def index(conn, %{"provider" => provider, "invitation_code" => invitation_code} = _params) do
     conn
     |> put_session(:invitation_code, invitation_code)
     |> redirect(external: authorize_url!(provider))
   end
 
-  def index(conn, %{"provider" => provider} = params) do
+  def index(conn, %{"provider" => provider} = _params) do
     redirect(conn, external: authorize_url!(provider))
   end
 
@@ -65,7 +65,7 @@ defmodule DiscotexWeb.AuthController do
       end
 
     %{
-      email: email,
+      github_email: email,
       name: user["name"],
       github_id: user["id"] |> Integer.to_string(),
       username: user["login"],
