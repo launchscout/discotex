@@ -46,25 +46,31 @@ defmodule Discotex.Account do
   end
 
   def invite_discord_user(discord_id, email) do
-    %User{}
-    |> User.changeset(%{
-      discord_id: discord_id,
-      email: email,
-      invitation_code: UUID.generate()
-    })
-    |> Repo.insert()
-    |> case do
-      {:ok, %User{} = user} = success ->
-        notify_subscribers(
-          :user_events,
-          {:discord_user_added,
-           %{discord_id: user.discord_id, invitation_code: user.invitation_code}}
-        )
+    with {:ok, %User{} = user} <- find_or_create_for_discord_invite(discord_id, email) do
+      notify_subscribers(
+        :user_events,
+        {:discord_user_added,
+         %{discord_id: user.discord_id, invitation_code: user.invitation_code}}
+      )
 
-        success
+      {:ok, user}
+    end
+  end
 
-      error ->
-        error
+  defp find_or_create_for_discord_invite(discord_id, email) do
+    case get_user_by_email(email) do
+      nil ->
+        create_user(%{
+          discord_id: discord_id,
+          email: email,
+          invitation_code: UUID.generate()
+        })
+
+      user ->
+        update_user(user, %{
+          discord_id: discord_id,
+          invitation_code: UUID.generate()
+        })
     end
   end
 
