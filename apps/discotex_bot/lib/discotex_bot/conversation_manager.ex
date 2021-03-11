@@ -1,4 +1,8 @@
 defmodule DiscotexBot.ConversationManager do
+  @moduledoc """
+  This is a module to represent a conversation between the bot and a Discord user
+  """
+
   use GenServer
 
   require Logger

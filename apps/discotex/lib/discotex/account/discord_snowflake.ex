@@ -1,4 +1,8 @@
 defmodule Discotex.DiscordSnowflake do
+  @moduledoc """
+  This module represents a Discord Snowflake (a unique identifier to Discord)
+  """
+
   use Ecto.Type
   def type, do: :bigint
 
