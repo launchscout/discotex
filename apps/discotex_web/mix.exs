@@ -43,7 +43,6 @@ defmodule DiscotexWeb.MixProject do
       {:ecto_sql, "~> 3.4"},
       {:ex_machina, "~> 2.4", only: [:dev, :test]},
       {:gettext, "~> 0.18"},
-      {:hound, "~> 1.0", [runtime: false, only: :test]},
       {:jason, "~> 1.2"},
       {:oauth2, "~> 2.0"},
       {:phoenix, "~> 1.4.3"},
@@ -53,7 +52,8 @@ defmodule DiscotexWeb.MixProject do
       {:phoenix_live_view, "~> 0.13"},
       {:phoenix_pubsub, "~> 1.1"},
       {:plug_cowboy, "~> 2.1.0"},
-      {:postgrex, ">= 0.0.0"}
+      {:postgrex, ">= 0.0.0"},
+      {:wallaby, "~> 0.28.0", runtime: false, only: :test}
     ]
   end
 

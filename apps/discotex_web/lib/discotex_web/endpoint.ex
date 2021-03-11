@@ -7,7 +7,7 @@ defmodule DiscotexWeb.Endpoint do
     signing_salt: "xm8aYCG/"
   ]
 
-  if Application.get_env(:your_app, :sql_sandbox) do
+  if Application.get_env(:discotex, :sql_sandbox) do
     plug(Phoenix.Ecto.SQL.Sandbox)
   end
 

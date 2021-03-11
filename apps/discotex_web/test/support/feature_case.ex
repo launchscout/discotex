@@ -2,7 +2,7 @@ defmodule DiscotexWeb.FeatureCase do
   @moduledoc false
 
   use ExUnit.CaseTemplate
-  use Hound.Helpers
+  alias Wallaby.Browser
 
   alias Discotex.Repo
   alias DiscotexWeb.{Endpoint, FakeOAuthServer}
@@ -10,7 +10,7 @@ defmodule DiscotexWeb.FeatureCase do
 
   using do
     quote do
-      use Hound.Helpers
+      use Wallaby.DSL
 
       alias Discotex.Repo
       import Ecto
@@ -22,9 +22,7 @@ defmodule DiscotexWeb.FeatureCase do
   end
 
   setup tags do
-    Hound.start_session()
-
-    set_window_size(current_window_handle(), 1400, 900)
+    session = Wallaby.start_session(window_size: [width: 1400, height: 900])
 
     :ok = Sandbox.checkout(Repo)
 
@@ -45,6 +43,6 @@ defmodule DiscotexWeb.FeatureCase do
 
     Application.put_env(:discotex, Discotex.OAuth.GitHub, settings)
 
-    {:ok, auth_server: auth_server}
+    {:ok, auth_server: auth_server, session: session}
   end
 end
