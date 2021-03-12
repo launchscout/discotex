@@ -11,6 +11,7 @@ defmodule DiscotexWeb.FeatureCase do
   using do
     quote do
       use Wallaby.DSL
+      import Wallaby.Feature
 
       alias Discotex.Repo
       import Ecto
@@ -22,7 +23,7 @@ defmodule DiscotexWeb.FeatureCase do
   end
 
   setup tags do
-    session = Wallaby.start_session(window_size: [width: 1400, height: 900])
+    {:ok, session} = Wallaby.start_session(window_size: [width: 1400, height: 900])
 
     :ok = Sandbox.checkout(Repo)
 

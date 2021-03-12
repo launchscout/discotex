@@ -8,13 +8,12 @@ defmodule DiscotexWeb.AssociatingAccountsTest do
     user = insert(:user)
     FakeOAuthServer.set_user_response(auth_server, user)
 
-    session
-    |> Page.login(user)
-
     {:ok, user: user}
   end
 
-  test "Logging in", %{user: user} do
-    assert user != nil
+  feature "Logging in", %{user: user, session: session} do
+    session
+    |> Page.login(user)
+    |> Page.assert_logged_in(user)
   end
 end

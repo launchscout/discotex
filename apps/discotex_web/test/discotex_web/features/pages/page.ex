@@ -14,6 +14,9 @@ defmodule DiscotexWeb.Page do
     session
     |> visit("/")
     |> click(css("[data-test='login']"))
-    |> assert_has(css("[data-test='current_user']", text: user.name))
+  end
+
+  def assert_logged_in(session, user) do
+    assert_has(session, css("[data-test='current_user']", text: user.name))
   end
 end

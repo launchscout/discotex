@@ -39,27 +39,27 @@ jobs:
 
       - run: mix deps.get
 
-      # - restore_cache:
-      #     keys:
-      #       - v1-npm-install-{{ .Branch }}-{{ checksum "apps/discotex_web/assets/package-lock.json" }}
-      #       - v1-npm-install-{{ .Branch }}
-      #       - v1-npm-install
+      - restore_cache:
+          keys:
+            - v1-npm-install-{{ .Branch }}-{{ checksum "apps/discotex_web/assets/package-lock.json" }}
+            - v1-npm-install-{{ .Branch }}
+            - v1-npm-install
 
-      # - run:
-      #     command: npm install
-      #     working_directory: "apps/discotex_web/assets"
+      - run:
+          command: npm install
+          working_directory: "apps/discotex_web/assets"
 
-      # - save_cache:
-      #     key: v1-npm-install-{{ .Branch }}-{{ checksum "apps/discotex_web/assets/package-lock.json" }}
-      #     paths: "apps/discotex_web/assets/node_modules"
+      - save_cache:
+          key: v1-npm-install-{{ .Branch }}-{{ checksum "apps/discotex_web/assets/package-lock.json" }}
+          paths: "apps/discotex_web/assets/node_modules"
 
-      # - save_cache:
-      #     key: v1-npm-install-{{ .Branch }}
-      #     paths: "apps/discotex_web/assets/node_modules"
+      - save_cache:
+          key: v1-npm-install-{{ .Branch }}
+          paths: "apps/discotex_web/assets/node_modules"
 
-      # - save_cache:
-      #     key: v1-npm-install
-      #     paths: "apps/discotex_web/assets/node_modules"
+      - save_cache:
+          key: v1-npm-install
+          paths: "apps/discotex_web/assets/node_modules"
 
       - run: mix compile
 
@@ -79,10 +79,10 @@ jobs:
             - deps
             - _build
 
-      # - run:
-      #     name: Build assets
-      #     command: node node_modules/webpack/bin/webpack.js --mode development
-      #     working_directory: "apps/discotex_web/assets"
+      - run:
+          name: Build assets
+          command: node node_modules/webpack/bin/webpack.js --mode development
+          working_directory: "apps/discotex_web/assets"
 
       - run: mix format --check-formatted
       - run: mix credo --strict
