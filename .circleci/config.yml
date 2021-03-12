@@ -88,6 +88,9 @@ jobs:
       - run: mix credo --strict
       - run: mix do ecto.create, ecto.migrate && mix test
 
+      - store_artifacts:
+          path: screenshots
+
       - persist_to_workspace:
           root: .
           paths:
