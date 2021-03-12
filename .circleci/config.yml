@@ -89,7 +89,8 @@ jobs:
       - run: mix do ecto.create, ecto.migrate && mix test
 
       - store_artifacts:
-          path: screenshots
+          path: apps/discotex_web/screenshots
+          destination: screenshots
 
       - persist_to_workspace:
           root: .
