@@ -14,8 +14,8 @@ config :discotex, :sql_sandbox, true
 
 config :wallaby,
   driver: Wallaby.Chrome,
-  chromedriver: [
-    headless: false
-  ],
+  # chromedriver: [
+  #   headless: false
+  # ],
   otp_app: :discotex_web,
   screenshot_on_failure: true
