@@ -51,4 +51,9 @@ defmodule Discotex.Account.User do
     |> unique_constraint(:email, name: :unique_email)
     |> unique_constraint(:invitation_code, name: :unique_invitation_code)
   end
+
+  def discord_invite_changeset(user, attrs) do
+    user
+    |> cast(attrs, [:email, :discord_id])
+  end
 end

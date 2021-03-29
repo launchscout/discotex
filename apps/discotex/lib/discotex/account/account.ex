@@ -51,6 +51,10 @@ defmodule Discotex.Account do
     |> Repo.all()
   end
 
+  def change_discord_invite(user = %User{}, attrs \\ %{}) do
+    User.discord_invite_changeset(user, attrs)
+  end
+
   def invite_discord_user(discord_id, email) do
     with {:ok, %User{} = user} <- find_or_create_for_discord_invite(discord_id, email) do
       notify_subscribers(
