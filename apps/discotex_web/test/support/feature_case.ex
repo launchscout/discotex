@@ -44,6 +44,8 @@ defmodule DiscotexWeb.FeatureCase do
 
     Application.put_env(:discotex, Discotex.OAuth.GitHub, settings)
 
+    IO.inspect(Application.get_env(:discotex, Discotex.OAuth.GitHub), label: "HERE!")
+
     {:ok, auth_server: auth_server, session: session}
   end
 end
