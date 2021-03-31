@@ -36,6 +36,8 @@ defmodule DiscotexWeb.FeatureCase do
     settings =
       Application.get_env(:discotex, Discotex.OAuth.GitHub)
       |> Keyword.merge(
+        client_id: "BOBBY TABLES WAS HERE",
+        client_secret: "MR. T WAS HERE",
         site: "http://localhost:#{auth_server.port}",
         authorize_url: "http://localhost:#{auth_server.port}/authorize",
         token_url: "http://localhost:#{auth_server.port}/access_token",
