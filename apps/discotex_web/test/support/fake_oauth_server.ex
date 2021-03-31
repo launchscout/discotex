@@ -15,8 +15,10 @@ defmodule DiscotexWeb.FakeOAuthServer do
     Bypass.expect_once(bypass, "GET", "/authorize", fn conn ->
       conn = Conn.fetch_query_params(conn)
 
+      code = "asdf" |> Base.encode64()
+
       conn
-      |> Conn.put_resp_header("location", conn.query_params["redirect_uri"] <> "?code=asdf")
+      |> Conn.put_resp_header("location", conn.query_params["redirect_uri"] <> "?code=#{code}")
       |> Conn.send_resp(302, "text/html")
     end)
 
