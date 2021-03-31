@@ -33,7 +33,6 @@ defmodule DiscotexWeb.AuthController do
   access protected resources on behalf of the user.
   """
   def callback(conn, params = %{"provider" => provider, "code" => code}) do
-    IO.inspect(params, label: "PARAMS")
     invitation_code = get_session(conn, :invitation_code)
     client = get_token!(provider, code)
     oauth_user = get_user!(provider, client)

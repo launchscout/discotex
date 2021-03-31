@@ -108,7 +108,7 @@
 
         {Credo.Check.Warning.BoolOperationOnSameValues},
         {Credo.Check.Warning.IExPry},
-        # {Credo.Check.Warning.IoInspect},
+        {Credo.Check.Warning.IoInspect},
         {Credo.Check.Warning.LazyLogging, false},
         {Credo.Check.Warning.OperationOnSameValues},
         {Credo.Check.Warning.OperationWithConstantResult},
