@@ -32,7 +32,7 @@ defmodule DiscotexWeb.AuthController do
   be used to request an access token. The access token will then be used to
   access protected resources on behalf of the user.
   """
-  def callback(conn, %{"provider" => provider, "code" => code} = params) do
+  def callback(conn, params = %{"provider" => provider, "code" => code}) do
     IO.inspect(params, label: "PARAMS")
     invitation_code = get_session(conn, :invitation_code)
     client = get_token!(provider, code)
