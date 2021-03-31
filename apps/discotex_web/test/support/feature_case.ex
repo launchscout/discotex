@@ -39,7 +39,7 @@ defmodule DiscotexWeb.FeatureCase do
         site: "http://localhost:#{auth_server.port}",
         authorize_url: "http://localhost:#{auth_server.port}/authorize",
         token_url: "http://localhost:#{auth_server.port}/access_token",
-        redirect_uri: Endpoint.url() <> "/auth/github/callback"
+        redirect_uri: "http://localhost:4001/auth/github/callback"
       )
 
     Application.put_env(:discotex, Discotex.OAuth.GitHub, settings)
