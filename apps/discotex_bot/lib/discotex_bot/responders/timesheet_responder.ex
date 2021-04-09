@@ -31,7 +31,8 @@ defmodule DiscotexBot.Responders.TimesheetResponder do
   end
 
   defp build_reminder_message(user) do
-    {:dm_create, "Please fill out your timesheet", user.discord_id}
+    {:dm_create, "Please fill out your timesheet. https://gaslight.harvestapp.com",
+     user.discord_id}
   end
 
   defp build_admin_message(users) do

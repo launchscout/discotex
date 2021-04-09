@@ -2,10 +2,9 @@ defmodule DiscotexWeb.FeatureCase do
   @moduledoc false
 
   use ExUnit.CaseTemplate
-  alias Wallaby.Browser
 
   alias Discotex.Repo
-  alias DiscotexWeb.{Endpoint, FakeOAuthServer}
+  alias DiscotexWeb.FakeOAuthServer
   alias Ecto.Adapters.SQL.Sandbox
 
   using do
@@ -45,8 +44,6 @@ defmodule DiscotexWeb.FeatureCase do
       )
 
     Application.put_env(:discotex, Discotex.OAuth.GitHub, settings)
-
-    IO.inspect(Application.get_env(:discotex, Discotex.OAuth.GitHub), label: "HERE!")
 
     {:ok, auth_server: auth_server, session: session}
   end

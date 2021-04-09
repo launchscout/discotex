@@ -28,8 +28,10 @@ defmodule DiscotexBot.TimesheetReminderTest do
     assert sent_messages ==
              [
                {:message_create, "Sent messages to #{user1.name}, #{user2.name}", @channel_id},
-               {:dm_create, "Please fill out your timesheet", user1.discord_id},
-               {:dm_create, "Please fill out your timesheet", user2.discord_id}
+               {:dm_create, "Please fill out your timesheet. https://gaslight.harvestapp.com",
+                user1.discord_id},
+               {:dm_create, "Please fill out your timesheet. https://gaslight.harvestapp.com",
+                user2.discord_id}
              ]
   end
 
