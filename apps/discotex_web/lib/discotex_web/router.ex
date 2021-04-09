@@ -18,6 +18,7 @@ defmodule DiscotexWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :index
+    post "/discord_invite", PageController, :invite_discord_user
   end
 
   scope "/auth", DiscotexWeb do

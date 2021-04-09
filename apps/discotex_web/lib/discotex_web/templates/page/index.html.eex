@@ -1,0 +1,15 @@
+<h2>Invite Discord User</h2>
+<div>
+  <%= form_for @changeset, Routes.page_path(@conn, :invite_discord_user), fn f -> %>
+    <%= label f, :email %>
+    <%= email_input f, :email, required: true %>
+    <%= error_tag f, :email %>
+
+    <label>
+      Discord ID <%= text_input f, :discord_id, required: true %>
+    </label>
+    <%= error_tag f, :discord_id %>
+
+    <%= submit "Invite" %>
+  <% end %>
+</div>

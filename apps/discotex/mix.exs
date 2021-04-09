@@ -37,6 +37,8 @@ defmodule Discotex.MixProject do
   defp deps do
     [
       {:ecto_sql, "~> 3.3"},
+      {:ex_machina, "~> 2.4", only: [:dev, :test]},
+      {:oauth2, "~> 2.0"},
       {:postgrex, ">= 0.0.0"},
       {:jason, "~> 1.2"}
     ]
