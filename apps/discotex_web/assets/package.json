@@ -33,7 +33,7 @@
     "webpack-cli": "^2.0.10"
   },
   "devDependencies": {
-    "node-sass": "^4.13.1",
+    "node-sass": "^7.0.0",
     "sass-loader": "^7.3.1"
   }
 }
