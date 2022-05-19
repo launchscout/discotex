@@ -62,7 +62,7 @@ defmodule DiscotexBot.Responders.SimpleResponder do
 
   defp do_reply({:choir_can, message = %Message{}}) do
     {:message_create,
-     "https://loldamn.com/wp-content/uploads/2017/01/Beer-can-choir-holiday-decoration.jpg",
+     "https://i.pinimg.com/originals/8f/26/fe/8f26fec6f90f3bf0e1b442104ce088d2.jpg",
      message.channel_id}
   end
 
