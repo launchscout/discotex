@@ -11,7 +11,7 @@ import Config
 # dependencies, regardless if they belong to one or multiple
 # apps, should be configured in the umbrella to avoid confusion.
 for config <- "../apps/*/config/config.exs" |> Path.expand(__DIR__) |> Path.wildcard() do
-    import_config config
+  import_config config
 end
 
 # Configures Elixir's Logger
