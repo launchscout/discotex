@@ -31,10 +31,9 @@ defmodule DiscotexBot.MixProject do
     [
       {:discotex, in_umbrella: true},
       {:discotex_web, in_umbrella: true},
-      {:mox, "~> 0.5", only: :test},
-      {:nostrum, "~> 0.4", app: false},
-      {:gun, "~> 1.3"},
-      {:httpoison, "~> 1.7"}
+      {:mox, "~> 1.0", only: :test},
+      {:nostrum, "~> 0.5", app: false},
+      {:httpoison, "~> 1.8"}
     ]
   end
 end

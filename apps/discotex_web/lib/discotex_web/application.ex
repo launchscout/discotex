@@ -11,9 +11,10 @@ defmodule DiscotexWeb.Application do
     # List all child processes to be supervised
     children = [
       # Start the endpoint when the application starts
-      DiscotexWeb.Endpoint
+      DiscotexWeb.Endpoint,
       # Starts a worker by calling: DiscotexWeb.Worker.start_link(arg)
       # {DiscotexWeb.Worker, arg},
+      {Phoenix.PubSub, [name: DiscotexWeb.PubSub, adapter: Phoenix.PubSub.PG2]}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

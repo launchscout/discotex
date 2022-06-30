@@ -4,13 +4,12 @@ defmodule DiscotexWeb.Page do
   use Wallaby.DSL
 
   import Wallaby.Query
-  import ExUnit.Assertions
 
   def flash_info do
     css("[data-test='flash_info']")
   end
 
-  def login(session, user) do
+  def login(session, _user) do
     session
     |> visit("/")
     |> click(css("[data-test='login']"))

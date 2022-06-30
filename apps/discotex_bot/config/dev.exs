@@ -1,4 +1,4 @@
-use Mix.Config
+import Config
 
 config :discotex_bot, DiscotexBot.DiscordClient, enabled: true
 
