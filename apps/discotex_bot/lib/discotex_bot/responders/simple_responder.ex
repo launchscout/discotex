@@ -136,8 +136,7 @@ defmodule DiscotexBot.Responders.SimpleResponder do
     |> DiscotexBot.list_guild_emojis()
     |> Enum.filter(& &1.animated)
     |> Enum.map(&Emoji.api_name/1)
-    |> Enum.map(&"<:#{&1}>")
-    |> Enum.join(" ")
+    |> Enum.map_join(" ", &"<:#{&1}>")
   end
 
   defp command_messages(message_types) do
