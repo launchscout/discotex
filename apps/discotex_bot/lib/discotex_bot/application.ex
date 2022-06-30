@@ -16,14 +16,14 @@ defmodule DiscotexBot.Application do
 
   defp children do
     [
-      configure(DiscordClient),
+      maybe_start_child(DiscordClient),
       {Registry, keys: :unique, name: Registry.ChannelContexts},
-      ConversationManager
+      maybe_start_child(ConversationManager)
     ]
     |> List.flatten()
   end
 
-  defp configure(process) do
+  defp maybe_start_child(process) do
     if should_start?(process) do
       process
     else

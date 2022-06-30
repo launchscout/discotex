@@ -4,7 +4,7 @@ defmodule DiscotexWeb.AssociatingAccountsTest do
   alias DiscotexWeb.FakeOAuthServer
   alias DiscotexWeb.Page
 
-  setup %{auth_server: auth_server, session: session} do
+  setup %{auth_server: auth_server, session: _session} do
     user = insert(:user)
     FakeOAuthServer.set_user_response(auth_server, user)
 
