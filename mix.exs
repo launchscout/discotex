@@ -11,7 +11,11 @@ defmodule Discotex.Umbrella.MixProject do
 
   defp deps do
     [
-      {:credo, "~> 1.4", only: [:dev, :test], runtime: false}
+      {:credo, "~> 1.6", only: [:dev, :test], runtime: false},
+
+      # things to work around silliness between Discord's API and gun's http handling
+      {:gun, "2.0.1", hex: :remedy_gun, override: true},
+      {:cowlib, "~> 2.11.1", env: :prod, hex: "remedy_cowlib", override: true}
     ]
   end
 end

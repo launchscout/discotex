@@ -23,7 +23,8 @@ defmodule DiscotexWeb.ConnCase do
   using do
     quote do
       # Import conveniences for testing with connections
-      use ConnTest
+      import Plug.Conn
+      import Phoenix.ConnTest
       alias Helpers, as: Routes
 
       # The default endpoint for testing

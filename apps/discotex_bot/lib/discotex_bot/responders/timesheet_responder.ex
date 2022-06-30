@@ -38,8 +38,7 @@ defmodule DiscotexBot.Responders.TimesheetResponder do
   defp build_admin_message(users) do
     name_list =
       users
-      |> Enum.map(fn user -> user.name end)
-      |> Enum.join(", ")
+      |> Enum.map_join(", ", fn user -> user.name end)
 
     "Sent messages to #{name_list}"
   end
