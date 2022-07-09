@@ -55,7 +55,9 @@ defmodule DiscotexWeb.MixProject do
       {:plug_cowboy, "~> 2.5"},
       {:postgrex, "~> 0.16"},
       {:swoosh, "~> 1.3"},
-      {:wallaby, "~> 0.29.0", runtime: false, only: :test}
+      {:wallaby, "~> 0.29.0", runtime: false, only: :test},
+
+      {:cowlib, "~> 2.11.1", env: :prod, hex: "remedy_cowlib", override: true}
     ]
   end
 
