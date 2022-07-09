@@ -32,7 +32,7 @@ defmodule DiscotexBot.MixProject do
       {:discotex, in_umbrella: true},
       {:discotex_web, in_umbrella: true},
       {:mox, "~> 1.0", only: :test},
-      {:nostrum, "~> 0.5", app: false},
+      {:nostrum, "~> 0.6"},
       {:httpoison, "~> 1.8"}
     ]
   end

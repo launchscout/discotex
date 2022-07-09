@@ -8,7 +8,7 @@ defmodule DiscotexBot.Application do
 
   def start(type, args) do
     if should_start?(DiscotexBot.DiscordClient) do
-      Nostrum.Application.start(type, args)
+      {:ok, _} = Application.ensure_all_started(:nostrum)
     end
 
     Supervisor.start_link(children(), strategy: :one_for_one, name: DiscotexBot.Supervisor)
