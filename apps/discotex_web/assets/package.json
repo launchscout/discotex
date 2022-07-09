@@ -27,13 +27,12 @@
     "phoenix_html": "file:../../../deps/phoenix_html",
     "phoenix_live_view": "file:../../../deps/phoenix_live_view",
     "popper.js": "^1.16.0",
-    "sass": "^1.23.1",
+    "sass": "^1.45.1",
     "uglifyjs-webpack-plugin": "^1.2.4",
     "webpack": "4.4.0",
     "webpack-cli": "^2.0.10"
   },
   "devDependencies": {
-    "node-sass": "^4.13.1",
     "sass-loader": "^7.3.1"
   }
 }
