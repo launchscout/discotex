@@ -1,0 +1,129 @@
+# flyctl launch added from .elixir_ls/.gitignore
+.elixir_ls/**/*
+
+# flyctl launch added from .gitignore
+# The directory Mix will write compiled artifacts to.
+_build
+
+# If you run "mix test --cover", coverage assets end up here.
+cover
+
+# The directory Mix downloads your dependencies sources to.
+deps
+
+# Where 3rd-party dependencies like ExDoc output generated docs.
+doc
+
+# Ignore .fetch files in case you like to edit your project deps locally.
+.fetch
+
+# If the VM crashes, it generates a dump, let's ignore it too.
+**/erl_crash.dump
+
+# Also ignore archive artifacts (built via "mix archive.build").
+**/*.ez
+
+**/screenshots
+
+# flyctl launch added from apps/discotex/.gitignore
+# The directory Mix will write compiled artifacts to.
+apps/discotex/_build
+
+# If you run "mix test --cover", coverage assets end up here.
+apps/discotex/cover
+
+# The directory Mix downloads your dependencies sources to.
+apps/discotex/deps
+
+# Where 3rd-party dependencies like ExDoc output generated docs.
+apps/discotex/doc
+
+# Ignore .fetch files in case you like to edit your project deps locally.
+apps/discotex/.fetch
+
+# If the VM crashes, it generates a dump, let's ignore it too.
+apps/discotex/**/erl_crash.dump
+
+# Also ignore archive artifacts (built via "mix archive.build").
+apps/discotex/**/*.ez
+
+# Ignore package tarball (built via "mix hex.build").
+apps/discotex/**/discotex-*.tar
+
+# Files matching config/*.secret.exs pattern contain sensitive
+# data and you should not commit them into version control.
+#
+# Alternatively, you may comment the line below and commit the
+# secrets files as long as you replace their contents by environment
+# variables.
+# /config/*.secret.exs
+
+# flyctl launch added from apps/discotex_bot/.gitignore
+# The directory Mix will write compiled artifacts to.
+apps/discotex_bot/_build
+
+# If you run "mix test --cover", coverage assets end up here.
+apps/discotex_bot/cover
+
+# The directory Mix downloads your dependencies sources to.
+apps/discotex_bot/deps
+
+# Where third-party dependencies like ExDoc output generated docs.
+apps/discotex_bot/doc
+
+# Ignore .fetch files in case you like to edit your project deps locally.
+apps/discotex_bot/.fetch
+
+# If the VM crashes, it generates a dump, let's ignore it too.
+apps/discotex_bot/**/erl_crash.dump
+
+# Also ignore archive artifacts (built via "mix archive.build").
+apps/discotex_bot/**/*.ez
+
+# Ignore package tarball (built via "mix hex.build").
+apps/discotex_bot/**/discotex_bot-*.tar
+
+
+# flyctl launch added from apps/discotex_web/.gitignore
+# The directory Mix will write compiled artifacts to.
+apps/discotex_web/_build
+
+# If you run "mix test --cover", coverage assets end up here.
+apps/discotex_web/cover
+
+# The directory Mix downloads your dependencies sources to.
+apps/discotex_web/deps
+
+# Where 3rd-party dependencies like ExDoc output generated docs.
+apps/discotex_web/doc
+
+# Ignore .fetch files in case you like to edit your project deps locally.
+apps/discotex_web/.fetch
+
+# If the VM crashes, it generates a dump, let's ignore it too.
+apps/discotex_web/**/erl_crash.dump
+
+# Also ignore archive artifacts (built via "mix archive.build").
+apps/discotex_web/**/*.ez
+
+# Ignore package tarball (built via "mix hex.build").
+apps/discotex_web/**/discotex_web-*.tar
+
+# If NPM crashes, it generates a log, let's ignore it too.
+apps/discotex_web/**/npm-debug.log
+
+# The directory NPM downloads your dependencies sources to.
+apps/discotex_web/assets/node_modules
+
+# Since we are building assets from web/static,
+# we ignore priv/static. You may want to comment
+# this depending on your deployment strategy.
+apps/discotex_web/priv/static
+
+# Files matching config/*.secret.exs pattern contain sensitive
+# data and you should not commit them into version control.
+#
+# Alternatively, you may comment the line below and commit the
+# secrets files as long as you replace their contents by environment
+# variables.
+# /config/*.secret.exs
