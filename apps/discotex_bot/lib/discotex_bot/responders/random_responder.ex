@@ -372,7 +372,8 @@ defmodule DiscotexBot.Responders.RandomResponder do
     "http://d2f8dzk2mhcqts.cloudfront.net/0772_PEW_Roundup/09_Squirrel.jpg",
     "http://www.cybersalt.org/images/funnypictures/s/supersquirrel.jpg",
     "http://www.zmescience.com/wp-content/uploads/2010/09/squirrel.jpg",
-    "http://1.bp.blogspot.com/_v0neUj-VDa4/TFBEbqFQcII/AAAAAAAAFBU/E8kPNmF1h1E/s640/squirrelbacca-thumb.jpg"
+    "http://1.bp.blogspot.com/_v0neUj-VDa4/TFBEbqFQcII/AAAAAAAAFBU/E8kPNmF1h1E/s640/squirrelbacca-thumb.jpg",
+    "https://tenor.com/view/i-see-it-i-ship-it-peeping-looking-yacht-gif-16014489"
   ]
   defp do_reply({:ship_it, message}) do
     {:message_create, Enum.random(@squirrels), message.channel_id}
