@@ -1,5 +1,7 @@
 import Config
 
+config :logger, level: :warning
+
 config :discotex_bot, DiscotexBot.DiscordClient, enabled: true
 config :discotex_bot, DiscotexBot.ConversationManager, enabled: true
 
