@@ -1,4 +1,4 @@
 import Config
 
 # Do not print debug messages in production
-config :logger, level: :warn
+config :logger, level: :info

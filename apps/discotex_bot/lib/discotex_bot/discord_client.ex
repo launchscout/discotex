@@ -63,12 +63,12 @@ defmodule DiscotexBot.DiscordClient do
   end
 
   def handle_event(event = {:MESSAGE_CREATE, message = %Message{}, _ws_state}) do
-    Logger.info("Event: #{inspect(event)}")
+    Logger.debug("Event: #{inspect(event)}")
     respond(Dispatch.handle_message_create(message, Me.get()))
   end
 
   def handle_event(event) do
-    Logger.info("Unhandled event: #{inspect(event)}")
+    Logger.debug("Unhandled event: #{inspect(event)}")
   end
 
   defp respond(commands) when is_list(commands) do
