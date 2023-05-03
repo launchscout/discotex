@@ -10,6 +10,8 @@ defmodule DiscotexBot.Responders.RandomResponder do
     {~r/\badventure me\b/i, :adventure_me},
     {~r/\bcatbug me\b/i, :catbug_me},
     {~r/\bdance,? Tim\b/i, :dance_tim},
+    {~r/\may the fourth\b/i, :star_wars_me},
+    {~r/\may the 4th\b/i, :star_wars_me},
     {~r/\benlighten me\b/i, :enlighten_me},
     {~r/\bgob it\b/i, :gob_it},
     {~r/\bjackie chan\b/i, :jackie_chan},
@@ -413,6 +415,13 @@ defmodule DiscotexBot.Responders.RandomResponder do
   ]
   defp do_reply({:gir_me, message}) do
     {:message_create, Enum.random(@gir), message.channel_id}
+  end
+
+  @star_wars [
+    "https://cdn.discordapp.com/attachments/1092473798915268740/1103346205758603345/jayhopper_with_princess_leia_hair_buns_35343bfb-d664-4de0-bec4-50e7726a324e.png"
+  ]
+  defp do_reply({:star_wars_me, message}) do
+    {:message_create, Enum.random(@star_wars), message.channel_id}
   end
 
   defp map_message(message = %Message{content: content}) do
